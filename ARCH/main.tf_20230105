@@ -1,0 +1,48 @@
+resource "libvirt_network" "internal" {
+  name = "internal"
+  mode = "nat"
+
+  addresses = ["192.168.123.2/24"]  # Adjust the IP address based on your network configuration
+
+}
+
+
+
+
+resource "libvirt_volume" "example_vm_disk" {
+  name = "example-vm-disk"
+  size = 10
+}
+
+
+
+
+resource "libvirt_volume" "cloud_image" {
+  name   = "cloud-image"
+  source = "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img"
+  format = "qcow2"
+}
+
+resource "libvirt_domain" "example_vm" {
+  name   = "example-vm"
+  memory = 1024
+  vcpu   = 1
+
+  network_interface {
+    network_name = libvirt_network.internal.name
+  }
+
+  disk {
+    volume_id = libvirt_volume.example_vm_disk.id
+  }
+
+  disk {
+    volume_id = libvirt_volume.cloud_image.id
+  }
+
+  graphics {
+    type = "vnc"  # Use "vnc" or another supported graphics type
+  }
+
+
+}

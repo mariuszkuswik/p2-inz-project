@@ -2,12 +2,13 @@ terraform {
   required_providers {
     libvirt = {
       source = "dmacvicar/libvirt"
-      version = "0.7.6"
+      # Specify the version if needed
+      # version = "x.y.z"
     }
   }
 }
 
 provider "libvirt" {
-  uri   = "qemu:///system"
+  # Configuration for the libvirt provider
 }
 

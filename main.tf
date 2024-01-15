@@ -3,9 +3,5 @@ module "network" {
 }
 
 module "control-plane" {
-  source = "./modules/network"
+  source = "./modules/control-plane"
 }
-
-# module "instance" {
-  # source = "./modules/network"
-# }

@@ -13,12 +13,13 @@ resource "libvirt_volume" "example_vm_disk" {
 
 resource "libvirt_volume" "cloud_image" {
   name   = "rocky1"
-  source = "/home/mariusz/p2/rocky_image/Rocky-8-GenericCloud-Base-8.9-20231119.0.x86_64.qcow2"
+  source = "/home/mariusz/p2/terra_kvm/meta/rhel/rhel-server-7.9-x86_64-kvm.qcow2"
   format = "qcow2"
 }
 
+
 resource "libvirt_domain" "example_vm" {
-  name   = "rocky1"
+  name   = "rhel1"
   memory = 2024
   vcpu   = 1
 
@@ -42,6 +43,22 @@ resource "libvirt_domain" "example_vm" {
     type        = "pty"
     target_type = "serial"
     target_port = "0"
+  }
+
+cloudinit {
+    user_data = <<-EOF
+#cloud-config
+
+users:
+  - name: root
+    ssh-authorized-keys:
+      - ssh-rsa YOUR_SSH_PUBLIC_KEY
+
+chpasswd:
+  list: |
+    root:NEW_ROOT_PASSWORD
+  expire: False
+EOF
   }
 
 }

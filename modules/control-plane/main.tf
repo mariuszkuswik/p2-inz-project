@@ -1,17 +1,17 @@
-resource "libvirt_volume" "control_plane-system_drive" {
+resource "libvirt_volume" "control_plane_system_drive" {
   name = "example-vm-disk"
   size = 10
 }
 
-resource "libvirt_volume" "control_plane-cloud_image" {
-  name   = "rocky1"
-  source = "/home/mariusz/p2/terra_kvm/meta/rhel/rhel-server-7.9-x86_64-kvm.qcow2"
+resource "libvirt_volume" "control_plane_cloud_image" {
+  name   = var.control_plane_name
+  source = var.control_plane_disk_path
   format = "qcow2"
 }
 
 
 resource "libvirt_domain" "control_plane" {
-  name   = "rhel1"
+  name   = var.control_plane_name
   memory = 2024
   vcpu   = 1
 
@@ -20,11 +20,11 @@ resource "libvirt_domain" "control_plane" {
   }
 
   disk {
-    volume_id = libvirt_volume.control_plane-cloud_image.id
+    volume_id = libvirt_volume.control_plane_cloud_image.id
   }
 
   disk {
-    volume_id = libvirt_volume.control_plane-system_drive.id
+    volume_id = libvirt_volume.control_plane_system_drive.id
   }
 
   graphics {
@@ -38,19 +38,7 @@ resource "libvirt_domain" "control_plane" {
   }
 
 cloudinit {
-    user_data = <<-EOF
-#cloud-config
-
-users:
-  - name: root
-    ssh-authorized-keys:
-      - ssh-rsa YOUR_SSH_PUBLIC_KEY
-
-chpasswd:
-  list: |
-    root:NEW_ROOT_PASSWORD
-  expire: False
-EOF
+    user_data = var.control_plane_cloud_init
   }
 
 }

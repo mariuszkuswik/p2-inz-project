@@ -16,7 +16,7 @@ resource "libvirt_domain" "control_plane" {
   vcpu   = 1
 
   network_interface {
-    network_name = libvirt_network.internal.name
+    network_name = module.network.internal_network_name
   }
 
   disk {

@@ -1,5 +1,5 @@
 module "control_plane" {
-  source            = "./control_plane"
+  source            = "./modules/control_plane"
   common_network_name = var.common_network_name
 }
 

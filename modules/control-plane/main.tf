@@ -1,3 +1,7 @@
+module "constants" {
+   source = "../constants"
+}
+
 resource "libvirt_volume" "control_plane_system_drive" {
   name = "example-vm-disk"
   size = 10
@@ -16,7 +20,7 @@ resource "libvirt_domain" "control_plane" {
   vcpu   = 1
 
   network_interface {
-    network_name = var.common_network_name
+    network_name = module.constants.network_common_name
   }
 
   disk {
@@ -37,8 +41,6 @@ resource "libvirt_domain" "control_plane" {
     target_port = "0"
   }
 
-cloudinit {
-    user_data = var.control_plane_cloud_init
-  }
+cloudinit = var.control_plane_cloud_init
 
 }

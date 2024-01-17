@@ -3,7 +3,9 @@ module "control_plane" {
   common_network_name = var.common_network_name
 }
 
-module "network" {
-  source            = "./network"
-  common_network_name = var.common_network_name
+resource "libvirt_network" "internal" {
+  name = var.common_network_name 
+  mode = "nat"
+
+  addresses = ["192.168.123.0/24"]
 }

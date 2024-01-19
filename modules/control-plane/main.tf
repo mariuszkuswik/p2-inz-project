@@ -9,14 +9,15 @@ data "template_file" "user_data" {
   template = file("${path.module}/user-data.cfg")
 }
 
-data "template_file" "network_config" {
+data "template_file" "meta_data" {
   template = file("${path.module}/meta-data.cfg")
 }
 
 resource "libvirt_cloudinit_disk" "commoninit" {
   name           = "commoninit.iso"
   user_data      = data.template_file.user_data.rendered
-  network_config = data.template_file.network_config.rendered
+  meta_data      = data.template_file.meta_data.rendered
+  
 }
 
 #################

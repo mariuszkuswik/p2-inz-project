@@ -15,7 +15,7 @@ data "template_file" "user_data" {
 }
 
 resource "libvirt_cloudinit_disk" "commoninit" {
-  name           = "commoninit.iso"
+  name           = "${var.hostname}.iso"
   user_data      = data.template_file.user_data.rendered
 }
 
@@ -23,12 +23,12 @@ resource "libvirt_cloudinit_disk" "commoninit" {
 
 ### DISKS ###
 resource "libvirt_volume" "node_system_drive" {
-  name = "example-vm-disk"
+  name = "${var.hostname}-disk"
   size = 10
 }
 
 resource "libvirt_volume" "node_cloud_image" {
-  name   = var.node_name
+  name   = var.hostname
   source = var.node_disk_path
   format = "qcow2"
 }
@@ -61,6 +61,6 @@ resource "libvirt_domain" "node" {
     target_port = "0"
   }
 
-cloudinit = libvirt_node_disk.commoninit.id
+cloudinit = libvirt_cloudinit_disk.commoninit.id
 
 }

@@ -4,5 +4,5 @@ output "network_common_name" {
 }
 
 output "bridge_interface" {
-  value = "eth0"
+  value = "virbrid"
 }

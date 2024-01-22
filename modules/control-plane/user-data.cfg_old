@@ -1,6 +1,4 @@
 #cloud-config
-mounts: 
-  - ["/home/mariusz/p2/terra_kvm/meta", "/mnt/repos", "iso9660", "loop"]
 users:
   - cloud-user
   - name: ans_mariusz

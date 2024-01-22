@@ -8,5 +8,5 @@ terraform {
 }
 
 provider "libvirt" {
-  uri = "qemu:///system"
+  uri = "qemu+unix-ro:///system"
 }

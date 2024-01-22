@@ -42,6 +42,7 @@ resource "libvirt_domain" "control_plane" {
 
   network_interface {
     network_name = module.constants.network_common_name
+    bridge = "virtbrid"
   }
 
   disk {

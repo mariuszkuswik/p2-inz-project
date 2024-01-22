@@ -2,11 +2,21 @@ module "network" {
   source            = "./modules/network"
 }
 
-module "control-plane" {
-  source            = "./modules/control-plane"
+module "control_node" {
+  source            = "./modules/control_node"
+  hostname          = "control_node"
 }
 
-module "node1" {
-  source            = "./modules/node"
-  hostname          = "node1" 
-}
+# module "control-plane" {
+#   source            = "./modules/control_plane"
+# }
+
+# module "node1" {
+#   source            = "./modules/node"
+#   hostname          = "node1" 
+# }
+
+# module "node2" {
+#   source            = "./modules/node"
+#   hostname          = "node2" 
+# }

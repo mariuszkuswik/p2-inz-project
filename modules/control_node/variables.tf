@@ -7,3 +7,8 @@ variable "node_name" {
   type    = string
   default = "control_plane"
 }
+
+variable "repo_path" {
+  type    = string
+  default = "/home/mariusz/p2/terra_kvm/meta/repo"
+}

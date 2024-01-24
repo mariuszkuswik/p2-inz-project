@@ -8,6 +8,9 @@ variable "hostname" {
   type = string
 }
 
+variable "network_name" { 
+  type = string
+}
 
 ### CLOUD-INIT ###
 data "template_file" "user_data" {
@@ -35,11 +38,15 @@ resource "libvirt_domain" "node" {
   vcpu   = 1
 
   network_interface {
-    network_name = module.constants.network_common_name
+    network_name = var.network_name 
   }
 
   disk {
     volume_id = libvirt_volume.node_cloud_image.id
+  }
+
+  disk {
+    volume_id = var.repo_path
   }
 
   graphics {

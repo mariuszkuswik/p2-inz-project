@@ -41,7 +41,8 @@ resource "libvirt_domain" "control_plane" {
   vcpu   = 1
 
   network_interface {
-    network_name = module.constants.network_common_name
+
+    network_name = module.network.network_name
     bridge = "virtbrid"
   }
 

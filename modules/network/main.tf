@@ -1,9 +1,9 @@
-module "constants" {
-  source = "../constants"
+variable "network_name" {
+  type = string
 }
 
 resource "libvirt_network" "internal" {
-  name = module.constants.network_common_name
+  name = var.network_name
   mode = "nat"
 
   addresses = ["192.168.2.0/24"]

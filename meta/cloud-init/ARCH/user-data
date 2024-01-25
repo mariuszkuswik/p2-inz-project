@@ -1,4 +1,0 @@
-#cloud-config
-password: cilogon
-chpasswd: {expire: False}
-ssh_pwauth: True

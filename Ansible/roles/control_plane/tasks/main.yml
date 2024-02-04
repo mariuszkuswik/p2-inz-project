@@ -1,4 +1,5 @@
----
+--- 
+
 - name: Control_plane tasks
   tasks:
     - name: "Check if repo ISO is not mounted already, mount if isn't"

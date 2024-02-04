@@ -1,7 +1,6 @@
 --- 
-
 - name: Set up NFS Server on RHEL
-  hosts: localhost 
+  hosts: grp-control-plane 
   become: yes
 
   roles:

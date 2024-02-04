@@ -1,6 +1,7 @@
 ---
 - name: Map NFS Client
-  hosts: localhost 
+  hosts: grp-control-plane
+  # hosts: grp-nodes 
   become: yes
 
   roles:

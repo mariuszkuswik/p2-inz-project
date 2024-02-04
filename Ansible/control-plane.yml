@@ -1,5 +1,5 @@
 --- 
-- name: Set up NFS Server on RHEL
+- name: Set up control-plane host 
   hosts: grp_control_plane
   become: yes
 

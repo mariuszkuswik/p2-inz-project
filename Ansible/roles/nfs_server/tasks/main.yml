@@ -13,14 +13,14 @@
 
 - name: Create export directory
   file:
-    path: "{{ nfs_export_directory }}"
+    path: "{{ nfs_repos_export_directory }}"
     state: directory
     mode: '0755'
 
 - name: Add NFS export entry to /etc/exports
   lineinfile:
     path: /etc/exports
-    line: "{{ nfs_export_directory }} {{ nfs_export_options }}"
+    line: "{{ nfs_repos_export_directory }} {{ nfs_repos_export_options }}"
     create: yes
 
 - name: Reload NFS server configuration

@@ -1,0 +1,4 @@
+[AppStream]
+name=AppStream
+gpgcheck=no
+baseurl=file:///exports/repos/AppStream

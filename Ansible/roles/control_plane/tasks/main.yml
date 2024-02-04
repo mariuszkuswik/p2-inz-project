@@ -16,3 +16,15 @@
     state: mounted
     boot: true
   when: "repos_mount_point is not mount"
+
+
+- name: Copy AppStream repository file 
+  copy: 
+    src: files/AppStream.repo
+    dest: /etc/yum.repos.d/AppStream.repo
+  
+
+- name: Copy AppStream repository file 
+  copy: 
+    src: files/BaseOS.repo
+    dest: /etc/yum.repos.d/BaseOS.repo

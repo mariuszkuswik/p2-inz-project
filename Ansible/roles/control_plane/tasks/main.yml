@@ -12,3 +12,4 @@
     fstype: iso9660
     opts: "ro"
     state: mounted
+    boot: true

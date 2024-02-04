@@ -1,21 +1,17 @@
 ---
-- name: Ensure mount point exists
-  file:
-    path: "{{ repos_mount_point }}"
-    state: directory
-    mode: '0755'
+block: 
+  - name: Ensure mount point exists
+    file:
+      path: "{{ repos_mount_point }}"
+      state: directory
+      mode: '0755'
 
-
-- name: ihopefalse 
-  debug: "{{ '/etc/hosts' is mount }}"
-
-
-- name: Mount the optical drive
-  mount:
-    path: "{{ repos_mount_point }}"
-    src: "{{ repos_device_path }}"
-    fstype: iso9660
-    opts: "ro"
-    state: mounted
-    boot: true
+  - name: Mount the optical drive
+    mount:
+      path: "{{ repos_mount_point }}"
+      src: "{{ repos_device_path }}"
+      fstype: iso9660
+      opts: "ro"
+      state: mounted
+      boot: true
   when: not "{{ repos_mount_point is mount }}" 

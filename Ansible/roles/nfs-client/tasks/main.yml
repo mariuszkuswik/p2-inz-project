@@ -1,5 +1,4 @@
 ---
-# tasks file for nfs-client
 - name: Install NFS client package
   package:
     name: nfs-utils
@@ -12,7 +11,7 @@
     mode: '0755'
 
 - name: Mount NFS share
-  mount:
+  community.general.mount:
     path: "{{ nfs_mount_point }}"
     src: "{{ nfs_server }}:{{ nfs_export_path }}"
     fstype: nfs
@@ -23,3 +22,4 @@
     path: /etc/fstab
     line: "{{ nfs_server }}:{{ nfs_export_path }} {{ nfs_mount_point }} nfs rw,soft,intr 0 0"
     create: yes
+

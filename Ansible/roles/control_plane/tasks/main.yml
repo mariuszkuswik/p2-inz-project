@@ -1,21 +1,18 @@
 --- 
 
-- name: Control_plane tasks
-  tasks:
-    - name: "Check if repo ISO is not mounted already, mount if isn't"
-      block:
-        - name: Ensure mount point exists
-          file:
-            path: "{{ repos_mount_point }}"
-            state: directory
-            mode: '0755'
+- name: Ensure mount point exists
+  file:
+    path: "{{ repos_mount_point }}"
+    state: directory
+    mode: '0755'
+  when: "repos_mount_point is not mount"
 
-        - name: Mount the optical drive
-          mount:
-            path: "{{ repos_mount_point }}"
-            src: "{{ repos_device_path }}"
-            fstype: iso9660
-            opts: "ro"
-            state: mounted
-            boot: true
-      when: "repos_mount_point is not mount"
+- name: Mount the optical drive
+  mount:
+    path: "{{ repos_mount_point }}"
+    src: "{{ repos_device_path }}"
+    fstype: iso9660
+    opts: "ro"
+    state: mounted
+    boot: true
+  when: "repos_mount_point is not mount"

@@ -7,7 +7,7 @@
 
 - name: Ensure NFS service is enabled and running
   service:
-    name: nfs
+    name: nfs-server
     state: started
     enabled: yes
 

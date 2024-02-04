@@ -1,9 +1,9 @@
 ---
-# - name: Ensure mount point exists
-  # file:
-    # path: "{{ repos_mount_point }}"
-    # state: directory
-    # mode: '0755'
+- name: Ensure mount point exists
+  file:
+    path: "{{ repos_mount_point }}"
+    state: directory
+    mode: '0755'
 
 
 - name: ihopefalse 

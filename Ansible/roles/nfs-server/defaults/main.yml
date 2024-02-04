@@ -1,2 +1,3 @@
 ---
-# defaults file for nfs-server
+nfs_export_directory: /path/to/your/export/directory
+nfs_export_options: "*(rw,sync,no_root_squash,no_all_squash)"

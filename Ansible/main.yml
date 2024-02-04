@@ -1,0 +1,8 @@
+--- 
+
+- name: Set up NFS Server on RHEL
+  hosts: localhost 
+  become: yes
+
+  roles:
+    - nfs-server 

@@ -5,17 +5,10 @@
     state: directory
     mode: '0755'
 
-vars:
-  ihopefalse: "{{ '/etc/hosts' is mount }}"
-  normallytrue: "{{ '/tmp' is mount }}"
 
 - name: ihopefalse 
-  debug: 
-    var: ihopefalse
+  debug: "{{ '/etc/hosts' is mount }}"
 
-- name: normallytrue
-  debug: 
-    var: normallytrue
 
 - name: Mount the optical drive
   mount:

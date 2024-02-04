@@ -13,3 +13,4 @@
     opts: "ro"
     state: mounted
     boot: true
+  when: not "{{ repos_mount_point is mount }}" 

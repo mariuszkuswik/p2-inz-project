@@ -1,0 +1,7 @@
+---
+- name: Map NFS Client
+  hosts: localhost 
+  become: yes
+
+  roles:
+    - nfs-client

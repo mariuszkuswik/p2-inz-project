@@ -20,6 +20,7 @@ required_packages:
   - "kubectl"
   - "kubelet"
   - "kubeadm"
+  - "docker"
 
 # Services required to be enabled on boot
 required_services:

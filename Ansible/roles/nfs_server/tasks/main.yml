@@ -11,12 +11,6 @@
     state: started
     enabled: yes
 
-- name: Create export directory
-  file:
-    path: "{{ nfs_repos_export_directory }}"
-    state: directory
-    mode: '0755'
-
 - name: Add NFS export entry to /etc/exports
   lineinfile:
     path: /etc/exports

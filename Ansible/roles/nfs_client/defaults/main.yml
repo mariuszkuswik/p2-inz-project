@@ -1,5 +1,0 @@
----
-# defaults file for nfs-client
-nfs_server: control-plane
-nfs_repos_export_path: /exports/repo
-nfs_repos_mount_point: /mnt/repo

@@ -1,4 +1,5 @@
 ---
+#### REPOS ####
 - name: Ensure mount point exists
   file:
     path: "{{ repos_mount_point }}"
@@ -16,23 +17,25 @@
     boot: true
   when: "repos_mount_point is not mount"
 
-- name: Copy AppStream repository file 
+- name: Copy repository configuration files
   copy: 
-    src: files/AppStream.repo
-    dest: /etc/yum.repos.d/AppStream.repo
-  
-- name: Copy BaseOS repository file 
-  copy: 
-    src: files/BaseOS.repo
-    dest: /etc/yum.repos.d/BaseOS.repo
+    src: files/{{ item }}.repo
+    dest: /etc/yum.repos.d/{{ item }}.repo
+  loop: "{{ repos_to_enable }}"
 
-- name: Copy Kubernetes repository file 
-  copy: 
-    src: files/Kubernetes.repo
-    dest: /etc/yum.repos.d/Kubernetes.repo
 
+#### PACKAGES ####
 - name: Install required packages
   ansible.builtin.dnf:
     name: "{{ item }}"
     state: present
   loop: "{{ required_packages }}"
+
+
+#### SERVICES ####
+- name: Enable required services now and on boot
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    state: "started"
+    enabled: true
+  loop: "{{ required_services }}"

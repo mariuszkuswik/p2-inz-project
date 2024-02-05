@@ -6,20 +6,22 @@
 
 - name: Ensure NFS mount point exists
   file:
-    path: "{{ nfs_mount_point }}"
+    path: "{{ nfs_repos_mount_point }}"
     state: directory
     mode: '0755'
+  when: "nfs_repos_mount_point is not mount"
 
 - name: Mount NFS share
-  community.general.mount:
-    path: "{{ nfs_mount_point }}"
-    src: "{{ nfs_server }}:{{ nfs_export_path }}"
+  ansible.posix.mount:
+    path: "{{ nfs_repos_mount_point }}"
+    src: "{{ nfs_server }}:{{ nfs_repos_export_path }}"
     fstype: nfs
     opts: "rw,soft,intr"
+    state: mounted
 
 - name: Add entry to /etc/fstab
   lineinfile:
     path: /etc/fstab
-    line: "{{ nfs_server }}:{{ nfs_export_path }} {{ nfs_mount_point }} nfs rw,soft,intr 0 0"
+    line: "{{ nfs_server }}:{{ nfs_repos_export_path }} {{ nfs_repos_mount_point }} nfs rw,soft,intr 0 0"
     create: yes
 

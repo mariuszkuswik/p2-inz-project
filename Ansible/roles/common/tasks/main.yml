@@ -1,5 +1,4 @@
 ---
-
 - name: Ensure mount point exists
   file:
     path: "{{ repos_mount_point }}"
@@ -26,6 +25,11 @@
   copy: 
     src: files/BaseOS.repo
     dest: /etc/yum.repos.d/BaseOS.repo
+
+- name: Copy Kubernetes repository file 
+  copy: 
+    src: files/Kubernetes.repo
+    dest: /etc/yum.repos.d/Kubernetes.repo
 
 - name: Install required packages
   ansible.builtin.dnf:

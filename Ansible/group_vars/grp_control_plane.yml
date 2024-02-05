@@ -7,7 +7,7 @@ repos_device_path: "/dev/sr0"
 ### Required packages 
 required_packages:
   - "python3.11"
-  - "kubectl1.28.3"
+  - "kubectl1.28.2"
 
 ### NFS
 nfs_repos_export_directory: "{{ repos_mount_point }}"

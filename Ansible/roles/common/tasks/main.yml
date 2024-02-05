@@ -26,3 +26,9 @@
   copy: 
     src: files/BaseOS.repo
     dest: /etc/yum.repos.d/BaseOS.repo
+
+- name: Install required packages
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ required_packages }}"

@@ -41,7 +41,7 @@ resource "libvirt_volume" "node_cloud_image" {
 resource "libvirt_domain" "node" {
   name   = var.hostname
   memory = 2024
-  vcpu   = 1
+  vcpu   = 2
 
   network_interface {
     network_name = var.network_name 

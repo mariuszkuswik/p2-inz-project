@@ -51,10 +51,6 @@ resource "libvirt_domain" "node" {
     volume_id = libvirt_volume.node_cloud_image.id
   }
 
-  disk {
-    file = var.repo_path
-  }
-
   graphics {
     type = "vnc"
   }

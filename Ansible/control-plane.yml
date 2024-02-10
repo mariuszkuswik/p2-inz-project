@@ -1,0 +1,9 @@
+--- 
+- name: Set up control-plane host 
+  hosts: grp_control_plane
+  become: yes
+
+  roles:
+#     - nfs_server 
+#     - common
+    - control_plane

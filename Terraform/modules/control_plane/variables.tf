@@ -8,4 +8,12 @@ variable "repo_path" {
   default = "/home/mariusz/p2/terra_kvm/meta/repo/repos.iso"
 }
 
+variable "meta_path" {
+  type    = string
+  default = "/home/mariusz/p2-inz-project/Meta/meta.iso"
+}
 
+variable "ansible_path" {
+  type    = string
+  default = "/home/mariusz/p2-inz-project/Meta/ansible.iso"
+}

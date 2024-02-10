@@ -1,0 +1,21 @@
+---
+
+- name: Install NFS server package
+  package:
+    name: nfs-utils
+    state: present
+
+- name: Ensure NFS service is enabled and running
+  service:
+    name: nfs-server
+    state: started
+    enabled: yes
+
+- name: Add NFS export entry to /etc/exports
+  lineinfile:
+    path: /etc/exports
+    line: "{{ nfs_repos_export_directory }} {{ nfs_repos_export_options }}"
+    create: yes
+
+- name: Reload NFS server configuration
+  command: exportfs -ra

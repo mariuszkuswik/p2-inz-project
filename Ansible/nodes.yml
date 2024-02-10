@@ -1,0 +1,8 @@
+---
+- name: Map NFS Client
+  hosts: grp_control_plane
+  become: yes
+
+  roles:
+    - nfs_client
+    - common

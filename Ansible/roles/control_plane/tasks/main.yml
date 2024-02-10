@@ -1,0 +1,30 @@
+--- 
+
+- name: Inicjalizacja klastra
+  command: kubeadm init --pod-network-cidr=10.244.0.0/16
+  args:
+    creates: /root/cluster_initialized.txt
+  register: kubeadm_init_raw
+
+- name: Zapisz dane wyjściowe kubeadm init do pliku
+  copy:
+    content: "stdout:\n{{ kubeadm_init_raw.stdout }}\n\nstderr:\n{{ kubeadm_init_raw.stderr }}"
+    dest: /root/cluster_initialized.txt
+  when: kubeadm_init_raw.changed
+
+- name: Utwórz katalog ~/.kube
+  file:
+    path: /home/kube/.kube
+    state: directory
+    mode: 0755
+    owner: kube
+    group: kube
+
+- name: Skopiuj plik admin.conf do katalogu konfiguracyjnego .kube
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/kube/.kube/config
+    remote_src: yes
+    owner: kube
+    group: kube
+

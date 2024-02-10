@@ -31,12 +31,6 @@ resource "libvirt_volume" "node_cloud_image" {
   format = "qcow2"
 }
 
-# resource "libvirt_volume" "repos_disk" {
-#   name   = var.hostname
-#   source = var.repos_path
-#   format = "iso"
-# }
-
 ### DOMAIN ###
 resource "libvirt_domain" "node" {
   name   = var.hostname
@@ -53,6 +47,10 @@ resource "libvirt_domain" "node" {
 
   disk {
     file = var.repo_path
+  }
+
+  disk {
+    file = var.meta_path
   }
 
   graphics {

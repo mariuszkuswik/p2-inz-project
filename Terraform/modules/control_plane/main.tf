@@ -53,6 +53,10 @@ resource "libvirt_domain" "node" {
     file = var.meta_path
   }
 
+  disk {
+    file = var.ansible_path
+  }
+
   graphics {
     type = "vnc"
   }

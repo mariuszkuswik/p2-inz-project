@@ -12,3 +12,8 @@ variable "meta_path" {
   type    = string
   default = "/home/mariusz/p2-inz-project/Meta/meta.iso"
 }
+
+variable "ansible_path" {
+  type    = string
+  default = "/home/mariusz/p2-inz-project/Meta/ansible.iso"
+}

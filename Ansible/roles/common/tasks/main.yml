@@ -1,4 +1,11 @@
 ---
+#### Ansible Roles
+- name: Install Ansible roles
+  command:
+    cmd: ansible-galaxy install "{{ item }}"
+  loop: "{{ roles_to_install }}"
+
+
 #### REPOS ####
 - name: Ensure mount point exists
   file:
@@ -23,14 +30,12 @@
     dest: /etc/yum.repos.d/{{ item }}.repo
   loop: "{{ repos_to_enable }}"
 
-
 #### PACKAGES ####
 - name: Install required packages
   ansible.builtin.dnf:
     name: "{{ item }}"
     state: present
   loop: "{{ required_packages }}"
-
 
 #### SERVICES ####
 - name: Enable required services now and on boot

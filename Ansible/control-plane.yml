@@ -4,6 +4,6 @@
   become: yes
 
   roles:
-#     - nfs_server 
-#     - common
+    - common
+    - nfs_server 
     - control_plane

@@ -14,6 +14,10 @@ repos_to_enable:
   - BaseOS
   - Kubernetes
 
+roles_to_install:
+  - community.general
+  - ansible.posix
+
 # Required packages 
 required_packages:
   - "python3.11"

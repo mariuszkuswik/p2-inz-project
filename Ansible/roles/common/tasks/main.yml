@@ -1,19 +1,19 @@
 ---
 - name: Common role 
   pre_tasks: 
-  #### Ansible Roles
+    #### Ansible Roles
     - name: Install Ansible roles
       command: ansible-galaxy collection install "{{ item }}"
       loop: "{{ roles_to_install }}"
 
   tasks: 
-  #### REPOS ####
+    #### REPOS ####
     - name: Ensure mount point exists
       file:
         path: "{{ repos_mount_point }}"
         state: directory
         mode: '0755'
-      when: "repos_mount_point is not mount"
+      when: "repos_mount_point is not defined"  # Fix the condition
 
     - name: Mount the optical drive
       mount:
@@ -23,12 +23,12 @@
         opts: "ro"
         state: mounted
         boot: true
-      when: "repos_mount_point is not mount"
+      when: "repos_mount_point is not defined"  # Fix the condition
 
     - name: Copy repository configuration files
       copy: 
         src: "{{ repo_files_source }}/{{ item }}.repo"
-        dest: /etc/yum.repos.d/{{ item }}.repo
+        dest: "/etc/yum.repos.d/{{ item }}.repo"
       loop: "{{ repos_to_enable }}"
 
     #### PACKAGES ####

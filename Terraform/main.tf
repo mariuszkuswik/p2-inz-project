@@ -9,16 +9,16 @@ module "control_node" {
   network_name      = "internal"
 }
 
-# module "node1" {
-#   source            = "./modules/node"
-#   hostname          = "node1" 
-#   node_disk_path    = "/home/mariusz/p2/terra_kvm/meta/rhel/rhel-8-node1.qcow2" 
-# }
+module "node1" {
+  source            = "./modules/node"
+  hostname          = "node1" 
+  node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node1.qcow2" 
+}
 
 # module "node2" {
 #   source            = "./modules/node"
 #   hostname          = "node2" 
-#   node_disk_path    = "/home/mariusz/p2/terra_kvm/meta/rhel/rhel-8-node2.qcow2" 
+#   node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node2.qcow2" 
 # }
 
 # module "node2" {

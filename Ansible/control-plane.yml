@@ -6,4 +6,4 @@
   roles:
     - common
     - nfs_server 
-    - control_plane
+    # - control_plane

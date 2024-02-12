@@ -1,0 +1,23 @@
+---
+- name: Set up control-plane host 
+  hosts: grp_control_plane
+  remote_user: "{{ main_user }}"
+  become: yes
+  
+  roles:
+    - common
+    - nfs_server 
+    # - control_plane
+
+- name: Set up node machines
+  hosts: grp_nodes
+  remote_user: "{{ main_user }}" 
+  become: yes
+
+  roles:
+    - nfs_client
+    - common
+    - node
+
+
+

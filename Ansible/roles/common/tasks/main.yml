@@ -34,6 +34,7 @@
   ansible.builtin.dnf:
     name: "{{ item }}"
     state: present
+    allowerasing: true
   loop: "{{ required_packages }}"
 
 #### SERVICES ####

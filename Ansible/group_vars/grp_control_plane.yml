@@ -13,6 +13,7 @@ repos_to_enable:
   - AppStream
   - BaseOS
   - Kubernetes
+  - docker-ce
 
 roles_to_install:
   - 'community.general'

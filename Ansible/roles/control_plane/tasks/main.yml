@@ -12,7 +12,7 @@
     name: containerd
     enabled: yes
 
-- name: Rozwiazanie problemu: enable bridge-nf-call-iptables
+- name: Rozwiazanie problemu enable bridge-nf-call-iptables
   command: "{{ item }}"
   with_items: 
   - "modprobe br_netfilter"

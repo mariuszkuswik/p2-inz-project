@@ -1,45 +1,48 @@
 ---
-#### Ansible Roles
-- name: Install Ansible roles
-  command: ansible-galaxy collection install "{{ item }}"
-  loop: "{{ roles_to_install }}"
+- name: Common role 
+  pre_tasks: 
+  #### Ansible Roles
+    - name: Install Ansible roles
+      command: ansible-galaxy collection install "{{ item }}"
+      loop: "{{ roles_to_install }}"
 
-#### REPOS ####
-- name: Ensure mount point exists
-  file:
-    path: "{{ repos_mount_point }}"
-    state: directory
-    mode: '0755'
-  when: "repos_mount_point is not mount"
+  tasks: 
+  #### REPOS ####
+    - name: Ensure mount point exists
+      file:
+        path: "{{ repos_mount_point }}"
+        state: directory
+        mode: '0755'
+      when: "repos_mount_point is not mount"
 
-- name: Mount the optical drive
-  mount:
-    path: "{{ repos_mount_point }}"
-    src: "{{ repos_device_path }}"
-    fstype: iso9660
-    opts: "ro"
-    state: mounted
-    boot: true
-  when: "repos_mount_point is not mount"
+    - name: Mount the optical drive
+      mount:
+        path: "{{ repos_mount_point }}"
+        src: "{{ repos_device_path }}"
+        fstype: iso9660
+        opts: "ro"
+        state: mounted
+        boot: true
+      when: "repos_mount_point is not mount"
 
-- name: Copy repository configuration files
-  copy: 
-    src: "{{ repo_files_source }}/{{ item }}.repo"
-    dest: /etc/yum.repos.d/{{ item }}.repo
-  loop: "{{ repos_to_enable }}"
+    - name: Copy repository configuration files
+      copy: 
+        src: "{{ repo_files_source }}/{{ item }}.repo"
+        dest: /etc/yum.repos.d/{{ item }}.repo
+      loop: "{{ repos_to_enable }}"
 
-#### PACKAGES ####
-- name: Install required packages
-  ansible.builtin.dnf:
-    name: "{{ item }}"
-    state: present
-    allowerasing: true
-  loop: "{{ required_packages }}"
+    #### PACKAGES ####
+    - name: Install required packages
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+        allowerasing: true
+      loop: "{{ required_packages }}"
 
-#### SERVICES ####
-- name: Enable required services now and on boot
-  ansible.builtin.systemd_service:
-    name: "{{ item }}"
-    state: "started"
-    enabled: true
-  loop: "{{ required_services }}"
+    #### SERVICES ####
+    - name: Enable required services now and on boot
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        state: "started"
+        enabled: true
+      loop: "{{ required_services }}"

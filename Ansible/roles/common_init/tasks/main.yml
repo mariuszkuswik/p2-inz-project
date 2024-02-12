@@ -1,0 +1,5 @@
+---
+#### Ansible Roles
+- name: Install Ansible roles
+  command: ansible-galaxy collection install "{{ item }}"
+  loop: "{{ roles_to_install }}"

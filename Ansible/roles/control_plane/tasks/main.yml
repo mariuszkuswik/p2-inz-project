@@ -39,19 +39,19 @@
     dest: /root/cluster_initialized.txt
   when: kubeadm_init_raw.changed
 
-- name: Utwórz katalog ~/.kube
+- name: Utworz katalog ~/.kube
   file:
-    path: /home/kube/.kube
+    path: "/home/{{ main_user }}/.kube"
     state: directory
     mode: 0755
-    owner: kube
-    group: kube
+    owner: "{{ main_user }}" 
+    group: "{{ main_user }}"
 
 - name: Skopiuj plik admin.conf do katalogu konfiguracyjnego .kube
   copy:
     src: /etc/kubernetes/admin.conf
-    dest: /home/kube/.kube/config
+    dest: "/home/{{ main_user }}/.kube/config"
     remote_src: yes
-    owner: kube
-    group: kube
+    owner: "{{ main_user }}" 
+    group: "{{ main_user }}"
 

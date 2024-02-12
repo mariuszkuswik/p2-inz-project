@@ -2,9 +2,8 @@
 #### Ansible Roles
 - name: Install Ansible roles
   command:
-    cmd: ansible-galaxy install "{{ item }}"
+    command: ansible-galaxy collection install "{{ item }}"
   loop: "{{ roles_to_install }}"
-
 
 #### REPOS ####
 - name: Ensure mount point exists

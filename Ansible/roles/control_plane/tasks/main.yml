@@ -1,4 +1,17 @@
 --- 
+- name: Zmiana w configu containerd
+  command: sed -i 's/^disabled_plugins = [\"cri\"]/\# disabled_plugins = [\"cri\"]/g' /etc/containerd/config.toml
+
+- name: Restart uslugi containerd 
+  service: 
+    name: containerd
+    state: restarted
+    
+- name: Wlaczenie uslugi containerd przy starcie systemu
+  service: 
+    name: containerd
+    enabled: yes
+
 - name: Inicjalizacja klastra
   command: kubeadm init --pod-network-cidr=10.244.0.0/16
   args:
@@ -7,7 +20,7 @@
 
 - name: Zapisz dane wyjściowe kubeadm init do pliku
   copy:
-    content: "stdout:\n{{ kubeadm_init_raw.stdout }}\n\nstderr:\n{{ kubeadm_init_raw.stderr }}"
+    content: 'stdout:\n{{ kubeadm_init_raw.stdout }}\n\nstderr:\n{{ kubeadm_init_raw.stderr }}'
     dest: /root/cluster_initialized.txt
   when: kubeadm_init_raw.changed
 

@@ -15,8 +15,8 @@ repos_to_enable:
   - Kubernetes
 
 roles_to_install:
-  - community.general
-  - ansible.posix
+  - 'community.general'
+  - 'ansible.posix'
 
 # Required packages 
 required_packages:
@@ -25,6 +25,7 @@ required_packages:
   - "kubelet"
   - "kubeadm"
   - "docker"
+  - "bash-completion"
 
 # Services required to be enabled on boot
 required_services:

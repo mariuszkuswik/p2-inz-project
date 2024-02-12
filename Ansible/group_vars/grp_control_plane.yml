@@ -27,6 +27,7 @@ required_packages:
   - "kubeadm"
   - "docker"
   - "bash-completion"
+  - "containerd.io"
 
 # Services required to be enabled on boot
 required_services:

@@ -12,6 +12,14 @@
     name: containerd
     enabled: yes
 
+- name: Rozwiazanie problemu: enable bridge-nf-call-iptables
+  command: "{{ item }}"
+  with_items: 
+  - "modprobe br_netfilter"
+  - "sysctl -w net.bridge.bridge-nf-call-iptables=1"
+  - "echo \"net.bridge.bridge-nf-call-iptables = 1\" | tee /etc/sysctl.d/99-kubernetes-cri.conf"
+  - "sysctl --system"
+
 - name: Inicjalizacja klastra
   command: kubeadm init --pod-network-cidr=10.244.0.0/16
   args:

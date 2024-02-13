@@ -8,6 +8,10 @@ variable "hostname" {
   type = string
 }
 
+variable "autostart" { 
+  type = bool
+  default = false
+}
 
 ### CLOUD-INIT ###
 data "template_file" "user_data" {
@@ -38,6 +42,7 @@ resource "libvirt_domain" "node" {
   name   = var.hostname
   memory = 2024
   vcpu   = 1
+  autostart = var.autostart
 
   network_interface {
     network_name = module.constants.network_common_name

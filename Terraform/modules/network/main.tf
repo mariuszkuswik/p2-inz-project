@@ -11,4 +11,9 @@ resource "libvirt_network" "internal" {
   dhcp {
     enabled = true
   }
+  
+  dns { 
+    enabled = true
+    local_only = false
+  }
 }

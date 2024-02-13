@@ -7,12 +7,14 @@ module "control_node" {
   source            = "./modules/control_plane"
   hostname          = "control_plane"
   network_name      = "internal"
+  autostart         = true
 }
 
 module "node1" {
   source            = "./modules/node"
   hostname          = "node1" 
   node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node1.qcow2" 
+  autostart         = false
 }
 
 # module "node2" {

@@ -12,6 +12,11 @@ variable "network_name" {
   type = string
 }
 
+variable "autostart" { 
+  type = bool
+  default = true
+}
+
 ### CLOUD-INIT ###
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.cfg")
@@ -36,6 +41,7 @@ resource "libvirt_domain" "node" {
   name   = var.hostname
   memory = 2024
   vcpu   = 2
+  autostart = var.autostart
 
   network_interface {
     network_name = var.network_name 

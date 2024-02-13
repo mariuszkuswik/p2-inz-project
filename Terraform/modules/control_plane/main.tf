@@ -3,20 +3,6 @@ module "constants" {
    source = "../constants"
 }
 
-### VARIABLES ###
-variable "hostname" { 
-  type = string
-}
-
-variable "network_name" { 
-  type = string
-}
-
-variable "autostart" { 
-  type = bool
-  default = true
-}
-
 ### CLOUD-INIT ###
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.cfg")
@@ -27,17 +13,15 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   user_data      = data.template_file.user_data.rendered
 }
 
-#################
-
 ### DISKS ###
-resource "libvirt_volume" "node_cloud_image" {
+resource "libvirt_volume" "control_plane_image" {
   name   = var.hostname
-  source = var.node_disk_path
+  source = var.control_plane_disk_path
   format = "qcow2"
 }
 
 ### DOMAIN ###
-resource "libvirt_domain" "node" {
+resource "libvirt_domain" "control_plane" {
   name   = var.hostname
   memory = 2024
   vcpu   = 2
@@ -48,7 +32,7 @@ resource "libvirt_domain" "node" {
   }
 
   disk {
-    volume_id = libvirt_volume.node_cloud_image.id
+    volume_id = libvirt_volume.control_plane_image.id
   }
 
   disk {

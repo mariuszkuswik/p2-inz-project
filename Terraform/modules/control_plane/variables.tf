@@ -1,4 +1,13 @@
-variable "node_disk_path" {
+variable "hostname" { 
+  type = string
+}
+
+variable "network_name" { 
+  type = string
+  default = "internal"
+}
+
+variable "control_plane_disk_path" {
   type    = string
   default = "/home/mariusz/p2-meta/rhel/rhel-8-control-plane.qcow2"
 }
@@ -16,4 +25,9 @@ variable "meta_path" {
 variable "ansible_path" {
   type    = string
   default = "/home/mariusz/p2-inz-project/Meta/ansible.iso"
+}
+
+variable "autostart" { 
+  type = bool
+  default = true
 }

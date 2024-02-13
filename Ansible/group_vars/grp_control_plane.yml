@@ -25,7 +25,7 @@ required_packages:
   - "kubectl"
   - "kubelet"
   - "kubeadm"
-  - "docker"
+  - "docker-ce"
   - "bash-completion"
   - "containerd.io"
 

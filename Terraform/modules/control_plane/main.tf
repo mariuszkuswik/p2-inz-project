@@ -1,7 +1,7 @@
-### MODULES ###
-module "constants" {
-   source = "../constants"
-}
+# ### MODULES ###
+# module "constants" {
+   # source = "../constants"
+# }
 
 ### CLOUD-INIT ###
 data "template_file" "user_data" {

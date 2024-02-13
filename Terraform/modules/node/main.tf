@@ -1,18 +1,9 @@
-### MODULES ###
-module "constants" {
-   source = "../constants"
-}
+# ### MODULES ###
+# module "constants" {
+   # source = "../constants"
+# }
 
 ### VARIABLES ###
-variable "hostname" { 
-  type = string
-}
-
-variable "autostart" { 
-  type = bool
-  default = false
-}
-
 ### CLOUD-INIT ###
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.cfg")

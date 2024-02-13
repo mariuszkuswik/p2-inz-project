@@ -1,6 +1,6 @@
 --- 
 - name: Zmiana w configu containerd
-  command: sed 's/disabled_plugins/\# disabled_plugins/g' /etc/containerd/config.toml
+  command: sed -i 's/disabled_plugins/\# disabled_plugins/g' /etc/containerd/config.toml
 
 - name: Restart uslugi containerd 
   service: 

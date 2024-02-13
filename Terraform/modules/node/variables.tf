@@ -7,6 +7,11 @@ variable "autostart" {
   default = false
 }
 
+variable "network_name" { 
+  type = string
+  default = "internal"
+}
+
 variable "node_disk_path" {
   type    = string
 }

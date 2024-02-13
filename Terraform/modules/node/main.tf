@@ -1,9 +1,3 @@
-# ### MODULES ###
-# module "constants" {
-   # source = "../constants"
-# }
-
-### VARIABLES ###
 ### CLOUD-INIT ###
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.cfg")
@@ -14,14 +8,7 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   user_data      = data.template_file.user_data.rendered
 }
 
-#################
-
 ### DISKS ###
-resource "libvirt_volume" "node_system_drive" {
-  name = "${var.hostname}-disk"
-  size = 10
-}
-
 resource "libvirt_volume" "node_cloud_image" {
   name   = var.hostname
   source = var.node_disk_path

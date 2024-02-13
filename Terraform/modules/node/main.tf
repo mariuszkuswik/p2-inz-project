@@ -1,3 +1,4 @@
+###### NODE module ######
 ### CLOUD-INIT ###
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.cfg")
@@ -23,15 +24,11 @@ resource "libvirt_domain" "node" {
   autostart = var.autostart
 
   network_interface {
-    network_name = module.constants.network_common_name
+    network_name = var.network_name
   }
 
   disk {
     volume_id = libvirt_volume.node_cloud_image.id
-  }
-
-  disk {
-    volume_id = libvirt_volume.node_system_drive.id
   }
 
   graphics {

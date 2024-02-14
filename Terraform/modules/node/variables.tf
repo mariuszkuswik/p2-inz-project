@@ -20,3 +20,8 @@ variable "node_disk_path" {
   type    = string
 }
 
+# Number of the node instances
+variable "num_instances" {
+  type    = number
+  default = 1  
+}

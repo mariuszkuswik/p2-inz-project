@@ -1,15 +1,17 @@
 ###### NODE module ######
 ### CLOUD-INIT ###
+## Template files declaration
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.cfg")
 }
-
+## cloud-init iso file
 resource "libvirt_cloudinit_disk" "commoninit" {
   name           = "${var.hostname}.iso"
   user_data      = data.template_file.user_data.rendered
 }
 
 ### DISKS ###
+## Cloud disk in qcow2 format
 resource "libvirt_volume" "node_cloud_image" {
   name   = var.hostname
   source = var.node_disk_path
@@ -18,15 +20,17 @@ resource "libvirt_volume" "node_cloud_image" {
 
 ### DOMAIN ###
 resource "libvirt_domain" "node" {
-  name   = var.hostname
+  count = var.num_instances
+
+  name   = format("node%d", count.index + 1)
   memory = 2024
   vcpu   = 1
   autostart = var.autostart
 
   network_interface {
     network_name  = var.network_name
-    hostname      = var.hostname
-    addressed     = var.addresses
+    hostname      = format("node%d", count.index + 1)
+    addresses     = [format("192.168.2.%d", count.index + 1)]
   }
 
   disk {

@@ -10,14 +10,16 @@ module "control_node" {
   autostart         = true
 }
 
-module "node1" {
+module "node" {
   source            = "./modules/node"
-  hostname          = "node1" 
+  # hostname          = "node1" 
   node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node1.qcow2" 
+  num_instances     = var.num_instances
   network_name      = "internal"
-  addresses         = "[192.168.2.101]"
+  # addresses         = "[192.168.2.101]"
   autostart         = false
 }
+
 
 # module "node2" {
 #   source            = "./modules/node"

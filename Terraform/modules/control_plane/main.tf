@@ -25,6 +25,7 @@ resource "libvirt_domain" "control_plane" {
 
   network_interface {
     network_name = var.network_name 
+    hostname     = var.hostname
   }
 
   disk {

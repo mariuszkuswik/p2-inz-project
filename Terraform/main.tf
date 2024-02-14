@@ -3,21 +3,23 @@ module "network" {
   network_name      = "internal"
 }
 
-module "control_node" {
+module "control_plane" {
   source            = "./modules/control_plane"
   hostname          = "control_plane"
   network_name      = "internal"
   autostart         = true
+  control_plane_disk_path = "/home/mariusz/p2-meta/rhel/rhel-8-control-plane-sample.qcow2"
 }
 
 module "node" {
   source            = "./modules/node"
-  hostname          = "node1" 
-  node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node1.qcow2" 
-  num_instances     = var.num_instances
+  # hostname          = "node1" 
+  node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node-sample.qcow2" 
+  num_instances     = 1
   network_name      = "internal"
-  addresses         = "[192.168.2.101]"
+  # addresses         = "[192.168.2.101]"
   autostart         = false
+  storage_pool      = "default"
 }
 
 
@@ -27,7 +29,3 @@ module "node" {
 #   node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node2.qcow2" 
 # }
 
-# module "node2" {
-#   source            = "./modules/node"
-#   hostname          = "node2" 
-# }

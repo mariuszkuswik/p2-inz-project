@@ -1,5 +1,6 @@
 variable "hostname" { 
   type = string
+  default = "control_plane"
 }
 
 variable "network_name" { 
@@ -9,7 +10,6 @@ variable "network_name" {
 
 variable "control_plane_disk_path" {
   type    = string
-  default = "/home/mariusz/p2-meta/rhel/rhel-8-control-plane.qcow2"
 }
 
 variable "repo_path" {

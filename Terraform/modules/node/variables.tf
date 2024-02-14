@@ -25,3 +25,8 @@ variable "num_instances" {
   type    = number
   default = 1  
 }
+
+variable "storage_pool" {
+  type    = string
+  default = "default"
+}

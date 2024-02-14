@@ -12,10 +12,19 @@ resource "libvirt_cloudinit_disk" "commoninit" {
 
 ### DISKS ###
 ## Cloud disk in qcow2 format
-resource "libvirt_volume" "node_cloud_image" {
+resource "libvirt_volume" "node_image" {
   name   = var.hostname
   source = var.node_disk_path
   format = "qcow2"
+}
+
+resource "libvirt_volume" "node_disk_copy" {
+  count       = var.num_instances
+  name        = format("node%d.qcow2", count.index + 1)
+  pool        = var.storage_pool
+  source      = "/home/mariusz/p2-meta/rhel/${format("node%d.qcow2", count.index + 1)}"
+  format      = "qcow2"
+  preallocate = false  # Adjust based on your requirements
 }
 
 ### DOMAIN ###
@@ -33,8 +42,13 @@ resource "libvirt_domain" "node" {
     addresses     = [format("192.168.2.10%d", count.index + 1)]
   }
 
+  provisioner "file" {
+    source      = var.node_disk_path
+    destination = "/home/mariusz/p2-meta/rhel/${format("node%d.qcow2", count.index + 1)}"
+  }
+
   disk {
-    volume_id = libvirt_volume.node_cloud_image.id
+    volume_id = libvirt_volume.node_image.id
   }
 
   graphics {

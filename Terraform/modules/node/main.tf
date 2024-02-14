@@ -26,7 +26,7 @@ resource "libvirt_volume" "node_disk_copy" {
   pool        = var.storage_pool
   source      = "/home/mariusz/p2-meta/rhel/${format("node%d.qcow2", count.index + 1)}"
   format      = "qcow2"
-  preallocate = false  # Adjust based on your requirements
+  # preallocate = false  # Adjust based on your requirements
 }
 
 ### DOMAIN ###
@@ -50,7 +50,7 @@ resource "libvirt_domain" "node" {
   }
 
   disk {
-    volume_id = libvirt_volume.node_image.id
+    volume_id = libvirt_volume.node_disk_path.id
   }
 
   graphics {
@@ -63,6 +63,6 @@ resource "libvirt_domain" "node" {
     target_port = "0"
   }
 
-cloudinit = libvirt_cloudinit_disk.commoninit.id
+  cloudinit = libvirt_cloudinit_disk.commoninit[count.index + 1].id
 
 }

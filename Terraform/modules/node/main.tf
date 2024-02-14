@@ -11,12 +11,13 @@ resource "libvirt_cloudinit_disk" "commoninit" {
 }
 
 ### DISKS ###
-## Cloud disk in qcow2 format
-resource "libvirt_volume" "node_image" {
-  name   = var.hostname
-  source = var.node_disk_path
-  format = "qcow2"
-}
+# ## Cloud disk in qcow2 format
+# resource "libvirt_volume" "node_image" {
+  # count       = var.num_instances
+  # name        = format("node%d.qcow2", count.index + 1)
+  # source = var.node_disk_path
+  # format = "qcow2"
+# }
 
 resource "libvirt_volume" "node_disk_copy" {
   count       = var.num_instances

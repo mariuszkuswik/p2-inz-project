@@ -63,6 +63,6 @@ resource "libvirt_domain" "node" {
     target_port = "0"
   }
 
-  cloudinit = libvirt_cloudinit_disk.commoninit[count.index + 1].id
+  cloudinit = libvirt_cloudinit_disk.commoninit[count.index].id
 
 }

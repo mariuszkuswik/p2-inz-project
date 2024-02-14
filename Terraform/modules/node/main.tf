@@ -50,7 +50,7 @@ resource "libvirt_domain" "node" {
   }
 
   disk {
-    volume_id = libvirt_volume.node_disk_path.id
+    volume_id = libvirt_volume.node_disk_copy[count.index].id
   }
 
   graphics {

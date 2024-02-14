@@ -6,7 +6,8 @@ data "template_file" "user_data" {
 }
 ## cloud-init iso file
 resource "libvirt_cloudinit_disk" "commoninit" {
-  name           = "${var.hostname}.iso"
+  count       = var.num_instances
+  name        = format("node%d.qcow2", count.index + 1)
   user_data      = data.template_file.user_data.rendered
 }
 

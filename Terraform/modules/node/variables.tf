@@ -12,6 +12,10 @@ variable "network_name" {
   default = "internal"
 }
 
+variable "addresses" { 
+  type = string
+}
+
 variable "node_disk_path" {
   type    = string
 }

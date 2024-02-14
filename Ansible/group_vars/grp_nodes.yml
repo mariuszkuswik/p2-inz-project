@@ -1,4 +1,4 @@
 ---
-nfs_server: "{{ main_machine }}" 
+nfs_server: "{{ control_plane }}" 
 nfs_repos_export_path: /exports/repos
 nfs_repos_mount_point: /mnt/repos

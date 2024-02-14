@@ -24,7 +24,9 @@ resource "libvirt_domain" "node" {
   autostart = var.autostart
 
   network_interface {
-    network_name = var.network_name
+    network_name  = var.network_name
+    hostname      = var.hostname
+    addressed     = var.addresses
   }
 
   disk {

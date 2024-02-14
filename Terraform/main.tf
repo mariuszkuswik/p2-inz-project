@@ -15,6 +15,7 @@ module "node1" {
   hostname          = "node1" 
   node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node1.qcow2" 
   network_name      = "internal"
+  addresses         = "[192.168.2.101]"
   autostart         = false
 }
 

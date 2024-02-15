@@ -11,13 +11,13 @@
     mode: '0755'
   when: "nfs_repos_mount_point is not mount"
 
-- name: Mount NFS share
-  ansible.posix.mount:
-    path: "{{ nfs_repos_mount_point }}"
-    src: "{{ nfs_server }}:{{ nfs_repos_export_path }}"
-    fstype: nfs
-    opts: "rw,soft,intr"
-    state: mounted
+# - name: Mount NFS share
+#   ansible.posix.mount:
+#     path: "{{ nfs_repos_mount_point }}"
+#     src: "{{ nfs_server }}:{{ nfs_repos_export_path }}"
+#     fstype: nfs
+#     opts: "rw,soft,intr"
+#     state: mounted
 
 - name: Add entry to /etc/fstab
   lineinfile:

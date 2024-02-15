@@ -20,13 +20,22 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   # format = "qcow2"
 # }
 
+resource "null_resource" "copy_disk" {
+  count = var.num_instances
+
+  provisioner "local-exec" {
+    command = "cp ${var.node_disk_path} /home/mariusz/p2-meta/rhel/${format("node%d.qcow2", count.index + 1)}"
+  }
+}
+
 resource "libvirt_volume" "node_disk_copy" {
   count       = var.num_instances
   name        = format("node%d.qcow2", count.index + 1)
   pool        = var.storage_pool
   source      = "/home/mariusz/p2-meta/rhel/${format("node%d.qcow2", count.index + 1)}"
   format      = "qcow2"
-  # preallocate = false  # Adjust based on your requirements
+
+  depends_on = [null_resource.copy_disk[count.index]]
 }
 
 ### DOMAIN ###

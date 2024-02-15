@@ -35,7 +35,9 @@ resource "libvirt_volume" "node_disk_copy" {
   source      = "/home/mariusz/p2-meta/rhel/${format("node%d.qcow2", count.index + 1)}"
   format      = "qcow2"
 
-  depends_on = [null_resource.copy_disk[count.index]]
+  triggers = {
+    copy_complete = null_resource.copy_disk[count.index].triggers
+  }
 }
 
 ### DOMAIN ###

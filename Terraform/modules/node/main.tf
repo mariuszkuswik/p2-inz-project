@@ -7,37 +7,18 @@ data "template_file" "user_data" {
 ## cloud-init iso file
 resource "libvirt_cloudinit_disk" "commoninit" {
   count       = var.num_instances
-  name        = format("node%d.qcow2", count.index + 1)
+  name        = format("node%d.iso", count.index + 1)
   user_data      = data.template_file.user_data.rendered
 }
 
 ### DISKS ###
-# ## Cloud disk in qcow2 format
-# resource "libvirt_volume" "node_image" {
-  # count       = var.num_instances
-  # name        = format("node%d.qcow2", count.index + 1)
-  # source = var.node_disk_path
-  # format = "qcow2"
-# }
-
-resource "null_resource" "copy_disk" {
-  count = var.num_instances
-
-  provisioner "local-exec" {
-    command = "cp ${var.node_disk_path} /home/mariusz/p2-meta/rhel/${format("node%d.qcow2", count.index + 1)}"
-  }
-}
-
 resource "libvirt_volume" "node_disk_copy" {
   count       = var.num_instances
   name        = format("node%d.qcow2", count.index + 1)
   pool        = var.storage_pool
-  source      = "/home/mariusz/p2-meta/rhel/${format("node%d.qcow2", count.index + 1)}"
+  source      = "/home/mariusz/p2-meta/rhel/rhel-8-node-sample.qcow2"
   format      = "qcow2"
 
-  triggers = {
-    copy_complete = null_resource.copy_disk[count.index].triggers
-  }
 }
 
 ### DOMAIN ###

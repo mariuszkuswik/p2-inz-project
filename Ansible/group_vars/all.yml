@@ -1,4 +1,8 @@
 ---
+ansible_connection: ssh
+ansible_user: ans_mariusz 
+ansible_ssh_pass: mypassword 
+
 repo_files_source: "/mnt/meta/repo_files"
 
 ### Main 

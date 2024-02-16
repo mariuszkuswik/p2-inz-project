@@ -1,5 +1,5 @@
 ---
-- name: "Set up {{ main_machine }} host" 
+- name: "Set up '{{ main_machine }}' host" 
   hosts: grp_control_plane
   remote_user: "{{ main_user }}"
   become: yes

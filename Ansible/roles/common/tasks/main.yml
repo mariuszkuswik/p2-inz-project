@@ -12,15 +12,15 @@
     mode: '0755'
   # when: "repos_mount_point is not defined"  # Fix the condition
 
-#- name: Mount the optical drive
-  #mount:
-    #path: "{{ repos_mount_point }}"
-    #src: "{{ repos_device_path }}"
-    #fstype: iso9660
-    #opts: "ro"
-    #state: mounted
-    #boot: true
-  #when: "repos_mount_point is not defined"  # Fix the condition
+- name: Mount the optical drive
+  mount:
+    path: "{{ repos_mount_point }}"
+    src: "{{ repos_device_path }}"
+    fstype: iso9660
+    opts: "ro"
+    state: mounted
+    boot: true
+  when: "repos_mount_point is not defined"  # Fix the condition
 
 - name: Copy repository configuration files
   copy: 

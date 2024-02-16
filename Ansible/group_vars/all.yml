@@ -2,9 +2,11 @@
 ansible_connection: ssh
 ansible_user: ans_mariusz 
 ansible_ssh_pass: mypassword 
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
 
 repo_files_source: "/mnt/meta/repo_files"
 
 ### Main 
 main_user: ans_mariusz
-control_plane: control-plane 
+control_plane: 192.168.2.10

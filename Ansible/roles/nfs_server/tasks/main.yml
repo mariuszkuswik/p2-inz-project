@@ -5,7 +5,7 @@
     state: directory
   loop: "{{ local_iso_mounts }}"
 
-- name: Mount the optical drive
+- name: Mount the optical drives
   mount:
     path: "{{ item.0 }}"
     src: "{{ item.1 }}"

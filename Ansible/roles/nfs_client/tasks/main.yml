@@ -18,7 +18,6 @@
     fstype: nfs
     opts: "rw,soft,intr"
     state: mounted
-  when: not (ansible.builtin.stat(path=nfs_repos_mount_point).exists)
 
 - name: Add entry to /etc/fstab
   lineinfile:

@@ -33,7 +33,7 @@
     path: /etc/exports
     line: "{{ item }} {{ nfs_export_options }}"
     create: yes
-  loop: "{{ nfs_export_dirs }}"
+  loop: "{{ local_iso_mounts }}"
 
 - name: Reload NFS server configuration
   command: exportfs -ra

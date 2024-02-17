@@ -13,12 +13,14 @@
 
 - name: Mount NFS share
   ansible.posix.mount:
-    path: "{{ nfs_repos_mount_point }}"
-    src: "{{ nfs_server }}:{{ item }}"
+    path: "{{ item.0 }}"
+    src: "{{ nfs_server }}:{{ item.1 }}"
     fstype: nfs
     opts: "rw,soft,intr"
     state: mounted
-  loop: "{{ nfs_export_paths }}"
+  with_together: 
+    - "{{ local_nfs_mount_paths }}"
+    - "{{ nfs_export_paths }}"
 
 - name: Add entry to /etc/fstab
   lineinfile:

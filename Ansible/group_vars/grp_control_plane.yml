@@ -1,21 +1,16 @@
 ---
 ### Local iso mounts ###
 local_iso_mounts: 
-  - "/mnt/repos" # repos mount point
-  - "/mnt/meta" # meta mount point
-  - "/mnt/ansible" # ansible mount point
+  - "/mnt/repos"    # repos mount point
+  - "/mnt/meta"     # meta mount point
+  - "/mnt/ansible"  # ansible mount point
 
 
 ## Path /dev/sr0 is always the same because of the cloud-init
 local_iso_device_paths: 
-  - "/dev/sr0" # repos_device_path
-  - "/dev/sr1" # meta_mount_point
-  - "/dev/sr2" # ansible_mount_point
-
-### NFS
-# nfs_export_dirs: 
-  # - "{{ repos_mount_point }}" # nfs_repos_export_directory
-  # - "{{ meta_mount_point }}" # nfs_meta_export_directory
+  - "/dev/sr0" # repos device path
+  - "/dev/sr1" # meta mount point
+  - "/dev/sr2" # ansible mount point
 
 nfs_export_options: "*(rw,sync,no_root_squash,no_all_squash)"
 

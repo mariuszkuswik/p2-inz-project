@@ -1,4 +1,16 @@
 ---
 nfs_server: "{{ control_plane }}" 
-nfs_repos_export_path: /mnt/repos
-nfs_repos_mount_point: /mnt/repos
+
+# Paths exported by nfs server  
+nfs_export_paths: "{{ local_iso_mounts }}"
+# Destination paths for nfs client
+local_nfs_mount_paths: "{{ local_iso_mounts }}"
+# 
+local_nfs_mount_options: "ro"
+
+# Repos to be enabled 
+repos_to_enable: 
+  - AppStream
+  - BaseOS
+  - Kubernetes
+  - docker-ce

@@ -1,12 +1,22 @@
 ---
-### Repos ###
-repos_mount_point: "/exports/repos"
+### Local iso mounts ###
+local_iso_mounts: 
+  - repos_mount_point: "/mnt/repos"
+  - meta_mount_point: "/mnt/meta"
+  - ansible_mount_point: "/mnt/ansible"
+
 ## Path /dev/sr0 is always the same because of the cloud-init
-repos_device_path: "/dev/sr0"
+local_iso_device_paths: 
+  - repos_device_path: "/dev/sr0"
+  - meta_mount_point: "/dev/sr1"
+  - ansible_mount_point: "/dev/sr2"
 
 ### NFS
-nfs_repos_export_directory: "{{ repos_mount_point }}"
-nfs_repos_export_options: "*(rw,sync,no_root_squash,no_all_squash)"
+nfs_export_dirs: 
+  - nfs_repos_export_directory: "{{ repos_mount_point }}"
+  - nfs_meta_export_directory: "{{ meta_mount_point }}"
+
+nfs_export_options: "*(rw,sync,no_root_squash,no_all_squash)"
 
 # Repos to be enabled 
 repos_to_enable: 

@@ -5,6 +5,7 @@
   become: yes
   
   roles:
+    - host
     - common
     - nfs_server 
     - control_plane
@@ -15,6 +16,7 @@
   become: yes
 
   roles:
+    - guest
     - nfs_client
     - common
     - node

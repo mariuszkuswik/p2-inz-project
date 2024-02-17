@@ -8,7 +8,6 @@
   file:
     path: "{{ item }}"
     state: directory
-    mode: '0755'
   loop: "{{ local_nfs_mount_paths }}"
   # when: "nfs_repos_mount_point is not mount"
 

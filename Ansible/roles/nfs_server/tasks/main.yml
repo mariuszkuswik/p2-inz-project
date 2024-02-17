@@ -1,4 +1,21 @@
 ---
+- name: Ensure mount point exists
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop: "{{ local_iso_mmounts }}"
+
+- name: Mount the optical drive
+  mount:
+    path: "{{ item.0 }}"
+    src: "{{ item.1 }}"
+    fstype: iso9660
+    opts: "ro"
+    state: mounted
+    boot: true
+  with_together:
+    - "{{ local_iso_mounts }}"
+    - "{{ local_iso_device_paths }}"
 
 - name: Install NFS server package
   package:
@@ -14,8 +31,11 @@
 - name: Add NFS export entry to /etc/exports
   lineinfile:
     path: /etc/exports
-    line: "{{ nfs_repos_export_directory }} {{ nfs_repos_export_options }}"
+    line: "{{ nfs_repos_export_directory }} {{ nfs_export_options }}"
     create: yes
 
 - name: Reload NFS server configuration
   command: exportfs -ra
+
+
+

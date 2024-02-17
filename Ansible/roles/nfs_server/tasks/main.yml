@@ -31,8 +31,9 @@
 - name: Add NFS export entry to /etc/exports
   lineinfile:
     path: /etc/exports
-    line: "{{ nfs_repos_export_directory }} {{ nfs_export_options }}"
+    line: "{{ item }} {{ nfs_export_options }}"
     create: yes
+  loop: "{{ nfs_export_dirs }}"
 
 - name: Reload NFS server configuration
   command: exportfs -ra

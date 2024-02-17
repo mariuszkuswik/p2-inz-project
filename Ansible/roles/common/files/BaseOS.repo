@@ -1,4 +1,4 @@
 [BaseOS]
 name=BaseOS
 gpgcheck=no
-baseurl=file:///exports/repos/BaseOS
+baseurl=file:///mnt/repos/BaseOS

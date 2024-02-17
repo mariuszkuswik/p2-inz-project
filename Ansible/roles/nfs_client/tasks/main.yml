@@ -9,7 +9,7 @@
     path: "{{ nfs_repos_mount_point }}"
     state: directory
     mode: '0755'
-  when: "nfs_repos_mount_point is not mount"
+  # when: "nfs_repos_mount_point is not mount"
 
 - name: Mount NFS share
   ansible.posix.mount:

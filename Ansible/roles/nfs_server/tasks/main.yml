@@ -28,6 +28,12 @@
     state: started
     enabled: yes
 
+- name: Ensure exported paths exists
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop: "{{ nfs_export_dirs }}"
+
 - name: Add NFS export entry to /etc/exports
   lineinfile:
     path: /etc/exports
@@ -37,6 +43,3 @@
 
 - name: Reload NFS server configuration
   command: exportfs -ra
-
-
-

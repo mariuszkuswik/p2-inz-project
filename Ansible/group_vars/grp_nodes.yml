@@ -1,11 +1,13 @@
 ---
 nfs_server: "{{ control_plane }}" 
 
-# Paths exported by nfs server  
-nfs_export_paths: "{{ local_iso_mounts }}"
-# Destination paths for nfs client
+# Paths exported by the nfs server  
+nfs_export_paths: "{{ nfs_export_dirs }}"
+
+# Destination paths for the nfs clients
 local_nfs_mount_paths: "{{ local_iso_mounts }}"
-# 
+
+# Options on how to mount nfs shares
 local_nfs_mount_options: "ro"
 
 # Repos to be enabled 

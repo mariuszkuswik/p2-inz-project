@@ -3,7 +3,7 @@
   file:
     path: "{{ item }}"
     state: directory
-  loop: "{{ local_iso_mmounts }}"
+  loop: "{{ local_iso_mounts }}"
 
 - name: Mount the optical drive
   mount:

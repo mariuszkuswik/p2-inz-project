@@ -18,6 +18,7 @@
     state: present
     allowerasing: true
   loop: "{{ required_packages }}"
+  when: "required_packages is defined"
 
 #### SERVICES ####
 - name: Enable required services now and on boot
@@ -26,3 +27,4 @@
     state: "started"
     enabled: true
   loop: "{{ required_services }}"
+  when: "required_services is defined"

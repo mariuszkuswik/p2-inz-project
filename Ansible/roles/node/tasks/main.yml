@@ -12,6 +12,21 @@
     name: containerd
     enabled: yes
 
+- name: Rozwiazanie problemu enable bridge-nf-call-iptables
+  command: "{{ item }}"
+  with_items: 
+  - "modprobe br_netfilter"
+  - "sysctl -w net.bridge.bridge-nf-call-iptables=1"
+  - "echo \"net.bridge.bridge-nf-call-iptables = 1\" | tee /etc/sysctl.d/99-kubernetes-cri.conf"
+  - "sysctl --system"
+
+- name: Rozwiazanie problemu ERROR FileContent--proc-sys-net-ipv4-ip_forward
+  command: "{{ item }}"
+  with_items: 
+  - "sysctl -w net.ipv4.ip_forward=1"
+  - "echo 'net.ipv4.ip_forward = 1' | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf"
+  - "sudo sysctl --system"
+
 - name: Execute join command
   command: "/exports/control-plane/kube_join_command.sh"
   args:

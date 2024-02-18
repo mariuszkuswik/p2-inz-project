@@ -16,7 +16,7 @@
 
   roles:
 #     - nfs_client
-#     - common
+    - common
     - node
 
 

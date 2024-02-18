@@ -1,10 +1,4 @@
 ---
-- name: Execute join command
-  command: "/exports/control-plane/kube_join_command.sh"
-  args:
-    creates: "/etc/kubernetes/kubelet.conf"
-  ignore_errors: true
-
 - name: Zmiana w configu containerd
   command: sed -i 's/disabled_plugins/\# disabled_plugins/g' /etc/containerd/config.toml
 
@@ -18,3 +12,8 @@
     name: containerd
     enabled: yes
 
+- name: Execute join command
+  command: "/exports/control-plane/kube_join_command.sh"
+  args:
+    creates: "/etc/kubernetes/kubelet.conf"
+  ignore_errors: true

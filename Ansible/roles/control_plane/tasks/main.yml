@@ -55,3 +55,13 @@
     owner: "{{ main_user }}" 
     group: "{{ main_user }}"
 
+- name: Generate join token
+  command: kubeadm token create --print-join-command
+  register: join_command
+  changed_when: false
+
+- name: Save join command to a file
+  copy:
+    content: "{{ join_command.stdout_lines[0] }}"
+    dest: "/tmp/kube_join_command.sh"
+    mode: 0744

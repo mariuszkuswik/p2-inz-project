@@ -19,9 +19,13 @@ repos_to_enable:
 
 ### DODAC INSTALACJE KOMENDY KUBEADM
 required_packages:
-  - kubeadm
+  - "kubectl"
+  - "kubelet"
+  - "kubeadm"
+  - "docker-ce"
+  - "bash-completion"
   - "containerd.io"
-
+ 
 # Services required to be enabled on boot
 required_services:
   - "kubelet"

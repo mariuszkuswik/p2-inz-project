@@ -16,3 +16,7 @@ repos_to_enable:
   - BaseOS
   - Kubernetes
   - docker-ce
+
+### DODAC INSTALACJE KOMENDY KUBEADM
+required_packages:
+  - kubeadm

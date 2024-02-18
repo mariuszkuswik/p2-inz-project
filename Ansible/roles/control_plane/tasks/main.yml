@@ -63,5 +63,5 @@
 - name: Save join command to a file
   copy:
     content: "{{ join_command.stdout_lines[0] }}"
-    dest: "/tmp/kube_join_command.sh"
+    dest: "/exports/control-plane/kube_join_command.sh"
     mode: 0744

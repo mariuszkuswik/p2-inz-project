@@ -1,3 +1,7 @@
+variable "network_name" {
+  type = string
+}
+
 resource "libvirt_network" "internal" {
   name = var.network_name
   mode = "bridge"
@@ -7,14 +11,16 @@ resource "libvirt_network" "internal" {
     interface_type = "ethernet"
   }
 
-  addresses = ["192.168.0.0/24"]  # Adjust the subnet to match your network
+
+  addresses = ["192.168.1.0/24"]
 
   dhcp {
     enabled = true
   }
-
-  dns {
-    enabled    = true
+  
+  dns { 
+    enabled = true
     local_only = false
   }
 }
+   

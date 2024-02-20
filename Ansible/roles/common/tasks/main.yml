@@ -32,16 +32,16 @@
 ### FIREWALL ###
 - name: Firewalld - Dodanie serwisów z listy
   ansible.posix.firewalld:
-  service: "{{ item }}"
-  permanent: true
-  state: enabled
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
   loop: "{{ firewall_services }}" 
   when: "{{ firewall_services is defined }}"
   
 - name: Firewalld - Dodanie portow tcp z listy
   ansible.posix.firewalld:
-  port:  "{{ item}}/tcp"
-  permanent: true
-  state: enabled
+    port:  "{{ item}}/tcp"
+    permanent: true
+    state: enabled
   loop: "{{ firewall_tcp_ports }}" 
   when: "{{ firewall_tcp_ports is defined }}"

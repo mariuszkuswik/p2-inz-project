@@ -36,7 +36,7 @@
     permanent: true
     state: enabled
   loop: "{{ firewall_services }}" 
-  when: "{{ firewall_services is defined }}"
+  when: "firewall_services is defined"
   
 - name: Firewalld - Dodanie portow tcp z listy
   ansible.posix.firewalld:
@@ -44,4 +44,4 @@
     permanent: true
     state: enabled
   loop: "{{ firewall_tcp_ports }}" 
-  when: "{{ firewall_tcp_ports is defined }}"
+  when: "firewall_tcp_ports is defined"

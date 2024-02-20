@@ -45,3 +45,6 @@
     state: enabled
   loop: "{{ firewall_tcp_ports }}" 
   when: "firewall_tcp_ports is defined"
+
+- name: Firewalld - Przeladowanie uslugi
+  command: firewall-cmd --reload

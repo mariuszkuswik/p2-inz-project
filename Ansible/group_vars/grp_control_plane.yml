@@ -47,6 +47,7 @@ firewall_services:
 
 firewall_tcp_ports: 
   # Kubernetes
+  - "6443"
   - "6783"
   - "10250"
   - "10255"

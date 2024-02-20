@@ -17,7 +17,6 @@ repos_to_enable:
   - Kubernetes
   - docker-ce
 
-### DODAC INSTALACJE KOMENDY KUBEADM
 required_packages:
   - "kubectl"
   - "kubelet"

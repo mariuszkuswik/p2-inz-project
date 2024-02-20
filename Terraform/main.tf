@@ -5,7 +5,7 @@ module "network" {
 
 module "control_plane" {
   source            = "./modules/control_plane"
-  hostname          = "control_plane"
+  hostname          = "control-plane"
   network_name      = "internal"
   autostart         = true
   control_plane_disk_path = "/home/mariusz/p2-meta/rhel/rhel-8-control-plane-sample.qcow2"

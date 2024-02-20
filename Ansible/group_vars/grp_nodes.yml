@@ -32,3 +32,10 @@ required_services:
   - "kubelet"
   - "firewalld"
   - "docker"
+
+firewall_tcp_ports: 
+  # Kubernetes
+  - "6783"
+  - "10250"
+  - "10255"
+  - "30000-32767"

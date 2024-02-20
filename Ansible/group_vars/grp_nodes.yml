@@ -30,3 +30,5 @@ required_packages:
 # Services required to be enabled on boot
 required_services:
   - "kubelet"
+  - "firewalld"
+  - "docker"

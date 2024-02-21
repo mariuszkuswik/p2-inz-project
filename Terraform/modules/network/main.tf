@@ -3,11 +3,14 @@ variable "network_name" {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 variable "bridge_name" {
   type = string
   default = "br0"
 }
 
+=======
+>>>>>>> parent of 31ba8d7 (bridge)
 =======
 >>>>>>> parent of 31ba8d7 (bridge)
 resource "libvirt_network" "internal" {

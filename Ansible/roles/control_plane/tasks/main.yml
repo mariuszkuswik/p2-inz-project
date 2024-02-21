@@ -27,41 +27,41 @@
   - "echo 'net.ipv4.ip_forward = 1' | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf"
   - "sudo sysctl --system"
 
-- name: Inicjalizacja klastra
-  command: kubeadm init --pod-network-cidr=10.244.0.0/16
-  args:
-    creates: /root/cluster_initialized.txt
-  register: kubeadm_init_raw
+# - name: Inicjalizacja klastra
+  # command: kubeadm init --pod-network-cidr=10.244.0.0/16
+  # args:
+    # creates: /root/cluster_initialized.txt
+  # register: kubeadm_init_raw
 
-- name: Zapisz dane wyjściowe kubeadm init do pliku
-  copy:
-    content: 'stdout:\n{{ kubeadm_init_raw.stdout }}\n\nstderr:\n{{ kubeadm_init_raw.stderr }}'
-    dest: /root/cluster_initialized.txt
-  when: kubeadm_init_raw.changed
+# - name: Zapisz dane wyjściowe kubeadm init do pliku
+  # copy:
+    # content: 'stdout:\n{{ kubeadm_init_raw.stdout }}\n\nstderr:\n{{ kubeadm_init_raw.stderr }}'
+    # dest: /root/cluster_initialized.txt
+  # when: kubeadm_init_raw.changed
 
-- name: Utworz katalog ~/.kube
-  file:
-    path: "/home/{{ main_user }}/.kube"
-    state: directory
-    mode: 0755
-    owner: "{{ main_user }}" 
-    group: "{{ main_user }}"
+# - name: Utworz katalog ~/.kube
+  # file:
+    # path: "/home/{{ main_user }}/.kube"
+    # state: directory
+    # mode: 0755
+    # owner: "{{ main_user }}" 
+    # group: "{{ main_user }}"
 
-- name: Skopiuj plik admin.conf do katalogu konfiguracyjnego .kube
-  copy:
-    src: /etc/kubernetes/admin.conf
-    dest: "/home/{{ main_user }}/.kube/config"
-    remote_src: yes
-    owner: "{{ main_user }}" 
-    group: "{{ main_user }}"
+# - name: Skopiuj plik admin.conf do katalogu konfiguracyjnego .kube
+  # copy:
+    # src: /etc/kubernetes/admin.conf
+    # dest: "/home/{{ main_user }}/.kube/config"
+    # remote_src: yes
+    # owner: "{{ main_user }}" 
+    # group: "{{ main_user }}"
 
-- name: Generate join token
-  command: kubeadm token create --print-join-command
-  register: join_command
-  changed_when: false
+# - name: Generate join token
+  # command: kubeadm token create --print-join-command
+  # register: join_command
+  # changed_when: false
 
-- name: Save join command to a file
-  copy:
-    content: "{{ join_command.stdout_lines[0] }}"
-    dest: "/exports/control-plane/kube_join_command.sh"
-    mode: 0744
+# - name: Save join command to a file
+  # copy:
+    # content: "{{ join_command.stdout_lines[0] }}"
+    # dest: "/exports/control-plane/kube_join_command.sh"
+    # mode: 0744

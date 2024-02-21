@@ -65,3 +65,12 @@
     content: "{{ join_command.stdout_lines[0] }}"
     dest: "/exports/control-plane/kube_join_command.sh"
     mode: 0744
+
+- name: Install helm 
+  command:   
+  with_items: 
+    - "chmod go-rwx ~/.kube/config"
+    - "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash"
+    - "helm repo add stable https://charts.helm.sh/stable"
+    - "kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/v3.4.3/deploy/crds.yaml"
+    - "helm install my-release oci://ghcr.io/nginxinc/charts/nginx-ingress --version 1.1.3"

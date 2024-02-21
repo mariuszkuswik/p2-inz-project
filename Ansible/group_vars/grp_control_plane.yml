@@ -27,28 +27,33 @@ roles_to_install:
 # Required packages 
 required_packages:
   - "python3.11"
-  - "kubectl"
-  - "kubelet"
-  - "kubeadm"
   - "docker-ce"
   - "bash-completion"
   - "containerd.io"
   - "iproute-tc"
   - "firewalld"
+  # Kubernetes
+  # - "kubectl"
+  # - "kubelet"
+  # - "kubeadm"
  
 # Services required to be enabled on boot
 required_services:
-  - "kubelet"
   - "firewalld"
   - "docker"
+  # Kubernetes
+  # - "kubelet"
 
 firewall_services:
   - "nfs"
 
 firewall_tcp_ports: 
+  # Docker swarm 
+  - "2377"
+  - "7946"
   # Kubernetes
-  - "6443"
-  - "6783"
-  - "10250"
-  - "10255"
-  - "30000-32767"
+  # - "6443"
+  # - "6783"
+  # - "10250"
+  # - "10255"
+  # - "30000-32767"

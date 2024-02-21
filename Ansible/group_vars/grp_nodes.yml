@@ -18,24 +18,34 @@ repos_to_enable:
   - docker-ce
 
 required_packages:
-  - "kubectl"
-  - "kubelet"
-  - "kubeadm"
   - "docker-ce"
   - "bash-completion"
   - "containerd.io"
   - "iproute-tc"
   - "firewalld"
-
+  # Kubernetes
+  # - "kubectl"
+  # - "kubelet"
+  # - "kubeadm"
 # Services required to be enabled on boot
 required_services:
-  - "kubelet"
   - "docker"
   - "firewalld"
+  # Kubernetes
+  # - "kubelet"
 
 firewall_tcp_ports: 
+  # Docker swarm
+  - "2377"
+  - "7946"
+  - "4789"
   # Kubernetes
-  - "6783"
-  - "10250"
-  - "10255"
-  - "30000-32767"
+  # - "6783"
+  # - "10250"
+  # - "10255"
+  # - "30000-32767"
+
+firewall_udp_ports: 
+  # Docker swarm
+  - "7946"
+  - "4789"

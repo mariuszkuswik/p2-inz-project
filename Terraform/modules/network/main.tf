@@ -2,26 +2,27 @@ variable "network_name" {
   type = string
 }
 
+<<<<<<< HEAD
 variable "bridge_name" {
   type = string
   default = "br0"
 }
 
+=======
+>>>>>>> parent of 31ba8d7 (bridge)
 resource "libvirt_network" "internal" {
   name = var.network_name
-  mode = "bridge"
+  mode = "nat"
 
-  bridge = var.bridge_name
+  addresses = ["192.168.2.0/24"]
 
-#   addresses = ["192.168.2.0/24"]
-
-  # dhcp {
-    # enabled = true
-  # }
+  dhcp {
+    enabled = true
+  }
   
-  # dns { 
-    # enabled = true
-    # local_only = false
-  # }
+  dns { 
+    enabled = true
+    local_only = false
+  }
 }
    

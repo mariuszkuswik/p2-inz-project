@@ -2,7 +2,7 @@ variable "network_name" {
   type = string
 }
 
-variable "network_name" {
+variable "bridge_name" {
   type = string
   default = "br0"
 }

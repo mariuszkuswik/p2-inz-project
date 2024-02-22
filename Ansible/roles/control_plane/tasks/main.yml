@@ -28,7 +28,7 @@
   - "sudo sysctl --system"
 
 - name: Initialize Docker Swarm 
-  docker_swarm: 
+  community.docker.docker_swarm: 
     state: present
     listen_addr: "{{ ansible_eth0.ipv4.address }}:2377"
     advertise_addr: "{{ ansible_eth0.ipv4.address }}"

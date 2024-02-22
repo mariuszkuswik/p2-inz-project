@@ -1,5 +1,5 @@
 ---
-nfs_server: "{{ control_plane }}" 
+nfs_server: "{{ control_plane_ip }}" 
 
 # Paths exported by the nfs server  
 nfs_export_paths: "{{ nfs_export_dirs }}"

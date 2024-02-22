@@ -51,7 +51,7 @@
     port:  "{{ item}}/udp"
     permanent: true
     state: enabled
-  loop: "{{ firewall_tcp_ports }}" 
+  loop: "{{ firewall_udp }}" 
   when: "firewall_tcp_ports is defined"
 
 

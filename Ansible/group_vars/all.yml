@@ -8,7 +8,7 @@ repo_files_source: "/mnt/meta/repo_files"
 
 ### Main 
 main_user: ans_mariusz
-control_plane: 192.168.2.10
+control_plane_ip: 192.168.2.10
 
 # CONTROL-PLANE Global settings!
 nfs_export_dirs: 

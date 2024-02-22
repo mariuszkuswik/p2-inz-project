@@ -27,3 +27,12 @@
   - "echo 'net.ipv4.ip_forward = 1' | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf"
   - "sudo sysctl --system"
 
+- name: Docker Swarm - Join cluster 
+  docker_swarm:
+    state: joined
+    remote_addr: "{{ control_plane_ip }}:2377"
+    token: "{{ swarm_join_token }}"
+  register: join_result
+
+- debug:
+    msg: "Worker joined swarm with code: {{ join_result.rc }}"

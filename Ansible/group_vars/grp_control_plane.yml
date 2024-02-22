@@ -30,7 +30,7 @@ required_packages:
   - "docker-ce"
   - "bash-completion"
   - "containerd.io"
-  - "iproute-tc"
+  # - "iproute-tc"
   - "firewalld"
  
 # Services required to be enabled on boot

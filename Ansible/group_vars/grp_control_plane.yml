@@ -23,6 +23,7 @@ repos_to_enable:
 roles_to_install:
   - 'community.general'
   - 'ansible.posix'
+  - "community.docker"
 
 # Required packages 
 required_packages:

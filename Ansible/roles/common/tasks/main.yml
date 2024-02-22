@@ -46,10 +46,18 @@
   loop: "{{ firewall_tcp_ports }}" 
   when: "firewall_tcp_ports is defined"
 
+- name: Firewalld - Dodanie portow tcp z listy
+  ansible.posix.firewalld:
+    port:  "{{ item}}/udp"
+    permanent: true
+    state: enabled
+  loop: "{{ firewall_tcp_ports }}" 
+  when: "firewall_tcp_ports is defined"
+
+
 ### TODO - dodac notify, firewall powinien byc przeladowany po dodaniu czegos do uslugi
 - name: Firewalld - Przeladowanie uslugi
   command: firewall-cmd --reload
-
 
 ### SELINUX ###
 - name: SELinux - wylaczenie tymczasowe

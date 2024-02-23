@@ -37,6 +37,7 @@
     state: enabled
   loop: "{{ firewall_services }}" 
   when: "firewall_services is defined"
+  notify: "reload firewall"
   
 - name: Firewalld - Dodanie portow tcp z listy
   ansible.posix.firewalld:
@@ -45,6 +46,7 @@
     state: enabled
   loop: "{{ firewall_tcp_ports }}" 
   when: "firewall_tcp_ports is defined"
+  notify: "reload firewall"
 
 - name: Firewalld - Dodanie portow tcp z listy
   ansible.posix.firewalld:
@@ -53,18 +55,17 @@
     state: enabled
   loop: "{{ firewall_udp_ports }}" 
   when: "firewall_tcp_ports is defined"
+  notify: "reload firewall"
 
 
-### TODO - dodac notify, firewall powinien byc przeladowany po dodaniu czegos do uslugi
-- name: Firewalld - Przeladowanie uslugi
-  command: firewall-cmd --reload
+
 
 ### SELINUX ###
-- name: SELinux - wylaczenie tymczasowe
-  command: setenforce 0
+# - name: SELinux - wylaczenie tymczasowe
+  # command: setenforce 0
 
-- name: SELinux - wylaczenie trwale
-  command: "sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux"
+# - name: SELinux - wylaczenie trwale
+  # command: "sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux"
 
 ### Ip-tables bridge? 
 # - name: ip-tables bridge? - zmienic na modul zamiast command

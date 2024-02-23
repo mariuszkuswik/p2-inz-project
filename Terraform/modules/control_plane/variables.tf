@@ -1,6 +1,6 @@
 variable "hostname" { 
   type = string
-  default = "control_plane"
+  default = "controlplane"
 }
 
 variable "network_name" { 

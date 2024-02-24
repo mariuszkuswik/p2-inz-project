@@ -1,2 +1,6 @@
 ---
 # handlers file for nfs-server
+
+- name: Reload NFS server configuration
+  command: exportfs -ra
+  listen: "nfs service restart"

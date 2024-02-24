@@ -43,7 +43,3 @@
     create: yes
   loop: "{{ nfs_export_dirs }}"
   notify: "nfs service restart"
-
-- name: Reload NFS server configuration
-  command: exportfs -ra
-  listen: "nfs service restart"

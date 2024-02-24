@@ -1,6 +1,2 @@
 ---
 # 
-- name: Docker Swarm - Initialization
-  command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ tmp_swarm_join_token_worker.stdout_lines }}"
-  register: swarm_init_result
-  listen: "join_swarm"

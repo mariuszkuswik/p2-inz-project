@@ -52,6 +52,13 @@
   when: "firewall_tcp_ports is defined"
   notify: "reload firewall"
 
+### TODO - dodac notify, firewall powinien byc przeladowany po dodaniu czegos do uslugi
+- name: Firewalld - Przeladowanie uslugi
+  ansible.posix.firewalld:
+    state: reloaded
+  # listen: "reload firewall"
+###
+
 ### SELINUX ###
 - name: SELinux - wylaczenie tymczasowe
   command: setenforce 0

@@ -19,5 +19,6 @@
     - common
     - node
 
-
+  handlers:
+    - node
 

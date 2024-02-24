@@ -21,13 +21,11 @@
 - name: Docker Swarm - Check if node is part of Swarm
   shell: "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'"
   register: swarm_check_result
-  always_run: true
 
 - name: Docker Swarm - Initialization
   command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ tmp_swarm_join_token_worker.stdout_lines }}"
   register: swarm_init_result
-  when: swarm_check_result.rc != 0
-
+  when: not defined('swarm_check_result') or swarm_check_result.rc != 0
 
 - name: Docker Swarm - Node is already part of the cluster
   debug:

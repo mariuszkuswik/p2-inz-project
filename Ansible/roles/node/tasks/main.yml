@@ -1,12 +1,11 @@
 ---
-- name: Zmiana w configu containerd
-  command: sed -i 's/disabled_plugins/\# disabled_plugins/g' /etc/containerd/config.toml
+# - name: Zmiana w configu containerd
+  # command: sed -i 's/disabled_plugins/\# disabled_plugins/g' /etc/containerd/config.toml
 
-    
-- name: Wlaczenie uslugi containerd przy starcie systemu
-  service: 
-    name: containerd
-    enabled: yes
+# - name: Wlaczenie uslugi containerd przy starcie systemu
+  # service: 
+    # name: containerd
+    # enabled: yes
 
 ### DOCKER SWARM JOIN ###
 - name: Docker Swarm - Check if node is part of Swarm

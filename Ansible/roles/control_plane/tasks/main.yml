@@ -39,6 +39,6 @@
   copy: 
     content: "{{ tmp_swarm_join_token_worker.stdout }}"
     dest: "/exports/control-plane/token.txt"
-    owner: "ans_mariusz"
-    group: "ans_mariusz"
+    owner: "{{ main_user }}"
+    group: "{{ main_user }}"
     mode: 0640

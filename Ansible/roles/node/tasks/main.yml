@@ -17,12 +17,19 @@
     src: "/exports/control-plane/token.txt"
   register: swarm_join_token_worker
 
-- name: Docker Swarm - Join cluster 
-  community.docker.docker_swarm:
-    state: join
-    remote_addrs: "{{ control_plane_ip }}:2377"
-    join_token: "{{ swarm_join_token_worker }}"
-  register: join_result
+### DOCKER SWARM JOIN ###
+- name: Docker Swarm - Check if node is part of Swarm
+  shell: "docker info | grep '^.*Swarm.*active'"
+  ignore_errors: true
+  register: swarm_check_result
 
-- debug:
-    msg: "Worker joined swarm with code: {{ join_result.rc }}"
+- name: Docker Swarm - Initialization
+  command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ swarm_join_token_worker }}"
+  when: swarm_check_result.stdout is not search('active') 
+  register: swarm_init_result
+
+- name: Docker Swarm - Node is already part of the cluster
+  debug:
+    msg: "Machine is already a member of the cluster"
+  when: swarm_check_result.stdout is search('active') 
+###

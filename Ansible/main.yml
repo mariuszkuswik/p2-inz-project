@@ -7,7 +7,7 @@
   roles:
 #    - common
 #    - nfs_server 
-    - control_plane
+#    - control_plane
 
 - name: Set up node machines
   hosts: grp_nodes

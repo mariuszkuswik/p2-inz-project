@@ -2,10 +2,6 @@
 - name: Zmiana w configu containerd
   command: sed -i 's/disabled_plugins/\# disabled_plugins/g' /etc/containerd/config.toml
 
-- name: Restart uslugi containerd 
-  service: 
-    name: containerd
-    state: restarted
     
 - name: Wlaczenie uslugi containerd przy starcie systemu
   service: 
@@ -18,18 +14,7 @@
   register: swarm_check_result
   ignore_errors: true
 
-- name: Print Docker Swarm Join Token for Worker
-  debug:
-    var: swarm_join_token_worker
-
 - name: Docker Swarm - Initialization
   command: "docker swarm join --token {{ lookup('ansible.builtin.file','/exports/control-plane/token.txt') }} {{ control_plane_ip }}:2377"
   register: swarm_init_result
   when: swarm_check_result is not defined or swarm_check_result.rc != 0
-
-- name: Docker Swarm - Node is already part of the cluster
-  debug:
-    msg: "Machine is already a member of the cluster"
-  when: swarm_check_result.rc = 0
-###
-

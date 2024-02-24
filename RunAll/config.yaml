@@ -1,0 +1,5 @@
+control-plane:
+  hostname: "control-plane"
+
+node: 
+  hostname_prefix: "node"

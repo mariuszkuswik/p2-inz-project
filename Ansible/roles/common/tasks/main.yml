@@ -1,10 +1,5 @@
 ---
-#### Ansible Roles
-- name: Install Ansible roles
-  command: ansible-galaxy collection install "{{ item }}"
-  loop: "{{ roles_to_install }}"
-  when: roles_to_install is defined
-
+#### REPOS ####
 - name: Copy repository configuration files
   copy: 
     src: "{{ repo_files_source }}/{{ item }}.repo"
@@ -64,6 +59,6 @@
 - name: SELinux - wylaczenie trwale
   command: "sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux"
 
-# Ip-tables bridge? 
-- name: ip-tables bridge? - zmienic na modul zamiast command
-  command: "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"
+# # Ip-tables bridge? 
+# - name: ip-tables bridge? - zmienic na modul zamiast command
+  # command: "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"

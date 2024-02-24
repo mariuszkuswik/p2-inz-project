@@ -12,20 +12,20 @@
     name: containerd
     enabled: yes
 
-- name: Rozwiazanie problemu enable bridge-nf-call-iptables
-  command: "{{ item }}"
-  with_items: 
-  - "modprobe br_netfilter"
-  - "sysctl -w net.bridge.bridge-nf-call-iptables=1"
-  - "echo \"net.bridge.bridge-nf-call-iptables = 1\" | tee /etc/sysctl.d/99-kubernetes-cri.conf"
-  - "sysctl --system"
+# - name: Rozwiazanie problemu enable bridge-nf-call-iptables
+  # command: "{{ item }}"
+  # with_items: 
+  # - "modprobe br_netfilter"
+  # - "sysctl -w net.bridge.bridge-nf-call-iptables=1"
+  # - "echo \"net.bridge.bridge-nf-call-iptables = 1\" | tee /etc/sysctl.d/99-kubernetes-cri.conf"
+  # - "sysctl --system"
 
-- name: Rozwiazanie problemu ERROR FileContent--proc-sys-net-ipv4-ip_forward
-  command: "{{ item }}"
-  with_items: 
-  - "sysctl -w net.ipv4.ip_forward=1"
-  - "echo 'net.ipv4.ip_forward = 1' | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf"
-  - "sudo sysctl --system"
+# - name: Rozwiazanie problemu ERROR FileContent--proc-sys-net-ipv4-ip_forward
+  # command: "{{ item }}"
+  # with_items: 
+  # - "sysctl -w net.ipv4.ip_forward=1"
+  # - "echo 'net.ipv4.ip_forward = 1' | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf"
+  # - "sudo sysctl --system"
 
 - name: Docker Swarm - Inicjalizacja
   command: 
@@ -34,4 +34,8 @@
 - name: Docker Swarm - Pobranie komendy pozwalajacej na dolaczenie do clustra 
   command: 
     cmd: "docker swarm join-token worker -q"
-  register: swarm_join_token_worker  
+  register: tmp_swarm_join_token_worker  
+
+- name: Docker Swarm - Ustawienie globalnej zmiennej z tokenem
+  set_fact: 
+    swarm_join_token_worker: "{{ tmp_swarm_join_token_worker }}"

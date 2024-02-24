@@ -24,7 +24,7 @@
   ignore_errors: true
 
 - name: Docker Swarm - Initialization
-  command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ tmp_swarm_join_token_worker.stdout_lines }}"
+  command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ swarm_join_token_worker.stdout_lines }}"
   register: swarm_init_result
   when: swarm_check_result is not defined or swarm_check_result.rc != 0
 

@@ -15,4 +15,6 @@ nfs_export_dirs:
   - "/mnt/repos"
   - "/mnt/meta"
   - "/mnt/ansible"
-  - "/exports/control-plane"
+
+nfs_write_export_dirs:
+  - "/exports/control_plane"

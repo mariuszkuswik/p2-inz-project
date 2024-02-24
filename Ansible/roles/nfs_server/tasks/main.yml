@@ -1,11 +1,11 @@
 ---
-- name: Ensure mount point exists
+- name: Mounts - Ensure mount point exists
   file:
     path: "{{ item }}"
     state: directory
   loop: "{{ local_iso_mounts }}"
 
-- name: Mount the optical drives
+- name: Mounts - Mount the optical drives
   mount:
     path: "{{ item.0 }}"
     src: "{{ item.1 }}"
@@ -17,24 +17,25 @@
     - "{{ local_iso_mounts }}"
     - "{{ local_iso_device_paths }}"
 
-- name: Install NFS server package
+- name: NFS - Install server package
   package:
     name: nfs-utils
     state: present
 
-- name: Ensure NFS service is enabled and running
+- name: NFS - Start and enable
   service:
     name: nfs-server
     state: started
     enabled: yes
 
-- name: Ensure exported paths exists
+- name: NFS - Ensure writable paths exists
   file:
     path: "{{ item }}"
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-  loop: "{{ nfs_export_dirs }}"
+    mode: "0644"
+  loop: "{{ nfs_write_export_dirs }}"
 
 - name: Add NFS export entry to /etc/exports
   lineinfile:

@@ -17,9 +17,8 @@
   command: "docker info  | grep -w '^.*Swarm.*active'"
   rescue:
     - name: Docker Swarm - Inicjalizacja
-      command: 
-        cmd: "docker swarm init"
-    - name: Docker Swarm - Jest już członkiem clustra
+      cmd: "docker swarm init"
+    - name: Docker Swarm - Jest juz członkiem clustra
       debug: 
         msg: Maszyna jest czlonkiem clustra
 

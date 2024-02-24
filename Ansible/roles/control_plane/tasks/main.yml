@@ -36,6 +36,8 @@
     cmd: "docker swarm join-token worker -q"
   register: tmp_swarm_join_token_worker  
 
-- name: Docker Swarm - Ustawienie globalnej zmiennej z tokenem
-  set_fact: 
-    swarm_join_token_worker: "{{ tmp_swarm_join_token_worker }}"
+- name: Docker Swarm - Zapisanie tokena do pliku tekstowego 
+  copy: 
+    content: "tmp_swarm_join_token_worker"
+    dest: "/exports/control-plane/token.txt"
+    mode: 0644

@@ -28,8 +28,9 @@
   # - "sudo sysctl --system"
 
 - name: Docker Swarm - Inicjalizacja
-  command: 
-    cmd: "docker swarm init"
+  community.docker.docker_swarm:
+    state: init
+  register: swarm_init
 
 - name: Docker Swarm - Pobranie komendy pozwalajacej na dolaczenie do clustra 
   command: 

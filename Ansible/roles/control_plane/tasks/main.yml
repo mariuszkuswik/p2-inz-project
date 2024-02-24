@@ -12,14 +12,16 @@
     name: containerd
     enabled: yes
 
-- name: Docker Swarm - Inicjalizacja
-  community.docker.docker_swarm:
-    state: present
-  register: swarm_init
 
-- name: Debug swarm_init
-  debug: 
-    msg: "{{ swarm_init }}"
+- name: Docker Swarm - Check if node is part of Swarm
+  command: "docker info  | grep -w '^.*Swarm.*active'"
+  rescue:
+    - name: Docker Swarm - Inicjalizacja
+      command: 
+        cmd: "docker swarm init"
+    - name: Docker Swarm - Jest już członkiem clustra
+      debug: 
+        msg: Maszyna jest czlonkiem clustra
 
 - name: Docker Swarm - Pobranie komendy pozwalajacej na dolaczenie do clustra 
   command: 

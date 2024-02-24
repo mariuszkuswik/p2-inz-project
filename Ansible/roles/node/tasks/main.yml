@@ -21,6 +21,7 @@
 - name: Docker Swarm - Check if node is part of Swarm
   shell: "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'"
   register: swarm_check_result
+  ignore_errors: true
 
 - name: Docker Swarm - Initialization
   command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ tmp_swarm_join_token_worker.stdout_lines }}"

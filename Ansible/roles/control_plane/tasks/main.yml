@@ -14,7 +14,7 @@
 
 ### DOCKER SWARM INIT ###
 - name: Docker Swarm - Check if node is part of Swarm
-  shell: "docker info | grep '^.*Swarm.*active'"
+  shell: "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'"
   ignore_errors: true
   register: swarm_check_result
 

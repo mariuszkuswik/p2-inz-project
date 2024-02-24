@@ -14,13 +14,20 @@
 
 
 - name: Docker Swarm - Check if node is part of Swarm
-  command: "docker info  | grep -w '^.*Swarm.*active'"
-  rescue:
-    - name: Docker Swarm - Inicjalizacja
-      cmd: "docker swarm init"
-    - name: Docker Swarm - Jest juz członkiem clustra
-      debug: 
-        msg: Maszyna jest czlonkiem clustra
+  command: "docker info | grep -w '^.*Swarm.*active'"
+  ignore_errors: true
+  register: swarm_check_result
+
+- name: Docker Swarm - Initialization
+  command: "docker swarm init"
+  when: swarm_check_result.rc != 0
+  register: swarm_init_result
+
+- name: Docker Swarm - Node is already part of the cluster
+  debug:
+    msg: "Machine is already a member of the cluster"
+  when: swarm_check_result.rc == 0
+
 
 - name: Docker Swarm - Pobranie komendy pozwalajacej na dolaczenie do clustra 
   command: 

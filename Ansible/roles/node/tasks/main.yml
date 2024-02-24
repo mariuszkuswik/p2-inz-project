@@ -22,11 +22,7 @@
   shell: "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'"
   ignore_errors: true
   register: swarm_check_result
-
-- name: Docker Swarm - Initialization
-  command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ swarm_join_token_worker }}"
-  when: swarm_check_result.stdout is not search('active') 
-  register: swarm_init_result
+  notify: "join_swarm"
 
 - name: Docker Swarm - Node is already part of the cluster
   debug:

@@ -36,8 +36,8 @@
 - name: Docker Swarm - Join cluster 
   community.docker.docker_swarm:
     state: join
-    remote_addr: "{{ control_plane_ip }}:2377"
-    token: "{{ swarm_join_token_worker }}"
+    remote_addrs: "{{ control_plane_ip }}:2377"
+    join_token: "{{ swarm_join_token_worker }}"
   register: join_result
 
 - debug:

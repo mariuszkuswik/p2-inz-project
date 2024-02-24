@@ -5,8 +5,8 @@
   become: yes
   
   roles:
-    - common
-    - nfs_server 
+#    - common
+#    - nfs_server 
     - control_plane
 
 - name: Set up node machines
@@ -15,7 +15,7 @@
   become: yes
 
   roles:
-    - nfs_client
-    - common
+#    - nfs_client
+#    - common
     - node
 

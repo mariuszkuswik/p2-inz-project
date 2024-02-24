@@ -12,11 +12,6 @@
     name: containerd
     enabled: yes
 
-- name: Docker Swarm - Wczytaj token do zmiennej
-  ansible.builtin.slurp:
-    src: "/exports/control-plane/token.txt"
-  register: swarm_join_token_worker
-
 ### DOCKER SWARM JOIN ###
 - name: Docker Swarm - Check if node is part of Swarm
   shell: "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'"
@@ -25,10 +20,10 @@
 
 - name: Print Docker Swarm Join Token for Worker
   debug:
-    var: swarm_join_token_worker.stdout_lines
+    var: swarm_join_token_worker
 
 - name: Docker Swarm - Initialization
-  command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ swarm_join_token_worker.stdout_lines }}"
+  command: "docker swarm join --token {{ lookup('ansible.builtin.file','/exports/control-plane/token.txt') }} {{ control_plane_ip }}:2377"
   register: swarm_init_result
   when: swarm_check_result is not defined or swarm_check_result.rc != 0
 

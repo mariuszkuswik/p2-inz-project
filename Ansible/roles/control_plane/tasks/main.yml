@@ -28,10 +28,8 @@
   - "sudo sysctl --system"
 
 - name: Docker Swarm - Inicjalizacja
-  community.docker.docker_swarm: 
-    state: present
-    listen_addr: "{{ ansible_eth0.ipv4.address }}:2377"
-    advertise_addr: "{{ ansible_eth0.ipv4.address }}"
+  command: 
+    cmd: "docker swarm init"
 
 - name: Docker Swarm - Pobranie komendy pozwalajacej na dolaczenie do clustra 
   command: 

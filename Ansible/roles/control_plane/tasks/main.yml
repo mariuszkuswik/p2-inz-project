@@ -40,4 +40,4 @@
   copy: 
     content: "tmp_swarm_join_token_worker"
     dest: "/exports/control-plane/token.txt"
-    mode: 0644
+    mode: 0640

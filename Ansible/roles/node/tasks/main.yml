@@ -17,7 +17,7 @@
     src: "/exports/control-plane/token.txt"
   register: swarm_join_token_worker
 
-### DOCKER SWARM JOIN ###
+
 - name: Docker Swarm - Check if node is part of Swarm
   shell: "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'"
   ignore_errors: true
@@ -26,6 +26,18 @@
     - name: Docker Swarm - Initialization
       command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ tmp_swarm_join_token_worker.stdout_lines }}"
       register: swarm_init_result
+
+
+
+# ### DOCKER SWARM JOIN ###
+# - name: Docker Swarm - Check if node is part of Swarm
+  # shell: "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'"
+  # ignore_errors: true
+  # register: swarm_check_result
+  # rescue:
+    # - name: Docker Swarm - Initialization
+      # command: "docker swarm join --advertise-addr {{ control_plane_ip }}:2377 --token {{ tmp_swarm_join_token_worker.stdout_lines }}"
+      # register: swarm_init_result
 
 - name: Docker Swarm - Node is already part of the cluster
   debug:

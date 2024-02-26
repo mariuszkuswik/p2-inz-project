@@ -34,8 +34,6 @@ resource "libvirt_domain" "node" {
     network_name  = var.network_name
     hostname      = format("node%d", count.index + 1)
     addresses     = [format("192.168.1.20%d", count.index + 1)]
-    gateway      = "192.168.1.1"
-    dns          = ["192.168.1.1", "8.8.8.8", "8.8.4.4"]
   }
 
   disk {

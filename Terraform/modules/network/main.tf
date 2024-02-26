@@ -15,7 +15,10 @@ resource "libvirt_network" "bridgenet" {
   dns {
     enabled    = true
     local_only = false
-    # servers = ["192.168.1.1","8.8.8.8","8.8.4.4"]
+    hosts {
+      hostname = "google"
+      ip = "8.8.8.8"
+    }
   }
 }
 

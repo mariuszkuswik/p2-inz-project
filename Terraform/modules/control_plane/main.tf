@@ -28,8 +28,6 @@ resource "libvirt_domain" "control_plane" {
     hostname     = var.hostname
     
     addresses    = ["192.168.1.10"]
-    gateway      = "192.168.1.1"
-    dns          = ["192.168.1.1", "8.8.8.8", "8.8.4.4"]
   }
 
   disk {

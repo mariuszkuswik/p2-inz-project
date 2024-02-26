@@ -33,7 +33,7 @@ resource "libvirt_domain" "node" {
   network_interface {
     network_name  = var.network_name
     hostname      = format("node%d", count.index + 1)
-    addresses     = [format("192.168.2.10%d", count.index + 1)]
+    addresses     = [format("192.168.1.20%d", count.index + 1)]
   }
 
   disk {

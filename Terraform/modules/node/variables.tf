@@ -5,7 +5,7 @@ variable "autostart" {
 
 variable "network_name" { 
   type = string
-  default = "internal"
+  default = "bridgenet"
 }
 
 variable "node_disk_path" {

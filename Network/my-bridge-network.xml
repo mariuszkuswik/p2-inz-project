@@ -1,0 +1,6 @@
+<network>
+  <name>my-bridge-network</name>
+  <forward mode='bridge'/>
+  <bridge name='nm-bridge2'/>
+</network>
+

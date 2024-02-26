@@ -5,7 +5,7 @@ variable "hostname" {
 
 variable "network_name" { 
   type = string
-  default = "internal"
+  default = "bridgenet"
 }
 
 variable "control_plane_disk_path" {

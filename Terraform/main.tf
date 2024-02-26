@@ -1,6 +1,7 @@
 module "network" {
   source            = "./modules/network"
   network_name      = "bridgenet"
+  network_autostart = true
 }
 
 module "control_plane" {
@@ -13,7 +14,7 @@ module "control_plane" {
 
 module "node" {
   # Number of instances!
-  num_instances     = 1
+  num_instances     = 2
   source            = "./modules/node"
   node_disk_path    = "/home/mariusz/p2-meta/rhel/rhel-8-node-sample.qcow2" 
   network_name      = "bridgenet"

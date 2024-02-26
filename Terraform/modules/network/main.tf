@@ -9,7 +9,6 @@ resource "libvirt_network" "bridgenet" {
 
   dhcp {
     enabled = false 
-    # range = "192.168.1.151,192.168.1.200"
   }
 
   dns {

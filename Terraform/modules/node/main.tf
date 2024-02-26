@@ -1,9 +1,16 @@
 ###### NODE module ######
 ### CLOUD-INIT ###
 ## Template files declaration
+
 data "template_file" "user_data" {
+  # for_each = toset(range(var.num_instances))
   template = file("${path.module}/user-data.cfg")
+  
+  vars = {
+    hostname = "test"
+  }
 }
+
 ## cloud-init iso file
 resource "libvirt_cloudinit_disk" "commoninit" {
   count       = var.num_instances
@@ -18,7 +25,6 @@ resource "libvirt_volume" "node_disk_copy" {
   pool        = var.storage_pool
   source      = "/home/mariusz/p2-meta/rhel/rhel-8-node-sample.qcow2"
   format      = "qcow2"
-
 }
 
 ### DOMAIN ###

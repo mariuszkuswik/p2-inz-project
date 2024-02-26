@@ -3,11 +3,12 @@
 ## Template files declaration
 
 data "template_file" "user_data" {
-  # for_each = toset(range(var.num_instances))
+  count    = var.num_instances
   template = file("${path.module}/user-data.cfg")
   
   vars = {
-    hostname = "test"
+    hostname = "node${count.index + 1}"
+    ip       = "192.168.1.20${count.index + 1}"
   }
 }
 
@@ -15,7 +16,7 @@ data "template_file" "user_data" {
 resource "libvirt_cloudinit_disk" "commoninit" {
   count       = var.num_instances
   name        = format("node%d.iso", count.index + 1)
-  user_data      = data.template_file.user_data.rendered
+  user_data      = data.template_file.user_data[count.index].rendered
 }
 
 ### DISKS ###

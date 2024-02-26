@@ -1,7 +1,3 @@
-variable "network_name" {
-  type = string
-}
-
 resource "libvirt_network" "bridgenet" {
   name   = var.network_name
   mode = "bridge"

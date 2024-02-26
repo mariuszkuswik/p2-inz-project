@@ -8,7 +8,7 @@ resource "libvirt_network" "bridgenet" {
   bridge = "nm-bridge2"
 
   dhcp {
-    enabled = true
+    enabled = false 
     # range = "192.168.1.151,192.168.1.200"
   }
 

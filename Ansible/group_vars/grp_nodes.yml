@@ -5,7 +5,7 @@ nfs_server: "{{ control_plane_ip }}"
 nfs_export_paths: "{{ nfs_export_dirs }}"
 
 # Destination paths for the nfs clients
-local_nfs_mount_paths: "{{ nfs_export_dirs }} + {{ nfs_write_export_dirs }}"
+local_nfs_mount_paths: "{{ nfs_export_dirs + nfs_write_export_dirs }}"
 
 # Options on how to mount nfs shares
 local_nfs_mount_options: "ro"

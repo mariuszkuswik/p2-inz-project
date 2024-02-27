@@ -54,8 +54,7 @@
 
 ### TODO - dodac notify, firewall powinien byc przeladowany po dodaniu czegos do uslugi
 - name: Firewalld - Przeladowanie uslugi
-  ansible.posix.firewalld:
-    state: reloaded
+  command: /usr/bin/firewall-cmd --reload
   # listen: "reload firewall"
 ###
 

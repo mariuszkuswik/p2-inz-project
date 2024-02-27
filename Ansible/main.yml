@@ -5,9 +5,9 @@
   become: yes
   
   roles:
-#    - common
-#    - nfs_server 
-#    - control_plane
+    - common
+    - nfs_server 
+    - control_plane
 
 - name: Set up node machines
   hosts: grp_nodes
@@ -15,7 +15,7 @@
   become: yes
 
   roles:
-#    - nfs_client
-#    - common
+    - nfs_client
+    - common
     - node
 

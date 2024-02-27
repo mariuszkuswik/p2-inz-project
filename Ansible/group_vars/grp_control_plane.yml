@@ -1,5 +1,5 @@
 ---
-nfs_export_options: "*(rw,sync,no_root_squash,no_all_squash)"
+nfs_export_options: "*(rw,sync)"
 
 ### Local iso mounts ###
 local_iso_mounts: 

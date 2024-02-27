@@ -14,6 +14,6 @@
   ignore_errors: true
 
 - name: Docker Swarm - Initialization
-  command: "docker swarm join --token {{ lookup('ansible.builtin.file','/exports/control-plane/token.txt') }} {{ control_plane_ip }}:2377"
+  command: "docker swarm join --token {{ lookup('ansible.builtin.file','{{ nfs_write_export_dirs[0] }}/token.txt') }} {{ control_plane_ip }}:2377"
   register: swarm_init_result
   when: swarm_check_result is not defined or swarm_check_result.rc != 0

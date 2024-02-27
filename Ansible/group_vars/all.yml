@@ -9,6 +9,7 @@ repo_files_source: "/mnt/meta/repo_files"
 ### Main 
 main_user: ans_mariusz
 control_plane_ip: 192.168.1.10
+main_machine_hostname: "control-plane"
 
 # CONTROL-PLANE Global settings!
 nfs_export_dirs: 
@@ -17,4 +18,4 @@ nfs_export_dirs:
   - "/mnt/ansible"
 
 nfs_write_export_dirs:
-  - "/exports/control_plane"
+  - "/exports/{{ main_machine_hostname }}"

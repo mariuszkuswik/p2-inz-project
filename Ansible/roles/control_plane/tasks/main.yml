@@ -38,7 +38,7 @@
 - name: Docker Swarm - Zapisanie tokena do pliku tekstowego 
   copy: 
     content: "{{ tmp_swarm_join_token_worker.stdout }}"
-    dest: "/exports/control-plane/token.txt"
+    dest: "{{ nfs_write_export_dirs[0] }}/token.txt"
     owner: "{{ main_user }}"
     group: "{{ main_user }}"
     mode: 0640

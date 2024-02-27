@@ -42,5 +42,5 @@
     path: /etc/exports
     line: "{{ item }} {{ nfs_export_options }}"
     create: yes
-  loop: "{{ nfs_export_dirs }}"
+  loop: "{{ local_nfs_mount_paths }}"
   notify: "nfs service restart"

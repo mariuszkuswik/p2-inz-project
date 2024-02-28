@@ -28,13 +28,6 @@
     state: started
     enabled: yes
 
-- name: NFS - Ensure read-only paths exists
-  file:
-    path: "{{ item }}"
-    state: directory
-    mode: "0755"
-  loop: "{{ nfs_ro_export_paths }}"
-
 - name: NFS - Ensure writable paths exists
   file:
     path: "{{ item }}"
@@ -42,7 +35,7 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0755"
-  loop: "{{ nfs_rw_export_paths }}"
+  loop: "{{ nfs_rw_export_dirs }}"
 
 - name: Add NFS export entry to /etc/exports
   lineinfile:

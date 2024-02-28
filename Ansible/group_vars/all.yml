@@ -6,7 +6,8 @@ ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
 repo_files_source: "/mnt/meta/repo_files"
 
-local_nfs_mount_paths: "{{ nfs_export_dirs + nfs_write_export_dirs }}"
+# local_nfs_mount_paths: "{{ nfs_export_dirs + nfs_write_export_dirs }}"
+local_nfs_mount_paths: "{{ nfs_export_dirs }}"
 
 
 ### Main 

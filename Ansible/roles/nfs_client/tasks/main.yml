@@ -4,12 +4,18 @@
     name: nfs-utils
     state: present
 
-- name: Ensure NFS mount point exists
+- name: Ensure NFS read-only mount point exists
   file:
     path: "{{ item }}"
     state: directory
   loop: "{{ local_nfs_mount_paths }}"
   # when: "nfs_repos_mount_point is not mount"
+
+- name: Ensure NFS read-only mount point exists
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop: "{{ local_nfs_mount_paths }}"
 
 - name: Mount NFS share
   ansible.posix.mount:

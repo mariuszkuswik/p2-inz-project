@@ -24,7 +24,7 @@
     fstype: nfs
     opts: "rw,soft,intr"
     state: mounted
-  with_together: 
+  with_items: 
     - "{{ local_nfs_mount_paths }}"
 
 - name: Add entry to /etc/fstab
@@ -32,5 +32,5 @@
     path: /etc/fstab
     line: "{{ nfs_server }}:{{ item }} {{ item }} nfs {{ local_nfs_mount_options }} 0 0"
     create: yes
-  with_together:
+  with_items:
     - "{{ local_nfs_mount_paths }}"

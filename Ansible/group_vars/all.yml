@@ -9,8 +9,6 @@ repo_files_source: "/mnt/meta/repo_files"
 local_nfs_mount_paths: "{{ nfs_export_dirs + nfs_write_export_dirs }}"
 
 
-
-
 ### Main 
 main_user: ans_mariusz
 control_plane_ip: 192.168.1.10

@@ -5,7 +5,6 @@
   register: swarm_check_result
   ignore_errors: true
 
-
 - name: Read file into variable
   ansible.builtin.slurp:
     path: '{{ nfs_rw_export_dirs[0] }}/token.txt'

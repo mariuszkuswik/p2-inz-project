@@ -35,12 +35,12 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0755"
-  loop: "{{ nfs_rw_export_dirs }}"
+  loop: "{{ nfs_export_paths }}"
 
 - name: Add NFS export entry to /etc/exports
   lineinfile:
     path: /etc/exports
     line: "{{ item }} {{ nfs_export_options }}"
     create: yes
-  loop: "{{ local_nfs_mount_paths }}"
+  loop: "{{ nfs_export_paths }}"
   notify: "nfs service restart"

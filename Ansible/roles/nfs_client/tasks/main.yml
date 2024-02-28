@@ -13,7 +13,7 @@
   loop: "{{ local_nfs_ro_mount_paths }}"
   # when: "nfs_repos_mount_point is not mount"
 
-- name: Ensure NFS read-only mount point exists
+- name: Ensure NFS writable mount point exists
   file:
     path: "{{ item }}"
     state: directory
@@ -21,15 +21,25 @@
   loop: "{{ local_nfs_rw_mount_paths }}"
   # when: "nfs_repos_mount_point is not mount"
 
-- name: Mount NFS share
+- name: Mount NFS read-only shares
   ansible.posix.mount:
     path: "{{ item }}"
     src: "{{ nfs_server }}:{{ item }}"
     fstype: nfs
-    opts: "rw,soft,intr"
+    opts: "{{ local_nfs_ro_mount_options }}"
     state: mounted
   with_items: 
-    - "{{ local_nfs_mount_paths }}"
+    - "{{ local_nfs_ro_mount_paths }}"
+
+- name: Mount NFS read-only shares
+  ansible.posix.mount:
+    path: "{{ item }}"
+    src: "{{ nfs_server }}:{{ item }}"
+    fstype: nfs
+    opts: "{{ local_nfs_rw_mount_options }}"
+    state: mounted
+  with_items: 
+    - "{{ local_nfs_rw_mount_paths }}"
 
 - name: Add entry to /etc/fstab
   lineinfile:

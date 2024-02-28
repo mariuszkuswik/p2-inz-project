@@ -28,7 +28,7 @@
     state: started
     enabled: yes
 
-- name: NFS - Ensure writable paths exists
+- name: NFS - Ensure paths exists
   file:
     path: "{{ item }}"
     state: directory

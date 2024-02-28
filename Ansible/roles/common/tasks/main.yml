@@ -61,6 +61,7 @@
 ### SELINUX ###
 - name: SELinux - wylaczenie tymczasowe
   command: setenforce 0
+  ignore_errors: true
 
 - name: SELinux - wylaczenie trwale
   command: "sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux"

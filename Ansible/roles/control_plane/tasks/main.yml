@@ -41,4 +41,4 @@
     dest: "{{ nfs_write_export_dirs[0] }}/token.txt"
     owner: "{{ main_user }}"
     group: "{{ main_user }}"
-    mode: 0640
+    mode: 0644

@@ -8,8 +8,6 @@
   file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
   loop: "{{ local_nfs_ro_mount_paths }}"
   # when: "nfs_repos_mount_point is not mount"
 
@@ -17,7 +15,6 @@
   file:
     path: "{{ item }}"
     state: directory
-    mode: "0755"
   loop: "{{ local_nfs_rw_mount_paths }}"
   # when: "nfs_repos_mount_point is not mount"
 
@@ -44,7 +41,7 @@
 - name: Add entry to /etc/fstab
   lineinfile:
     path: /etc/fstab
-    line: "{{ nfs_server }}:{{ item }} {{ item }} nfs {{ local_nfs_mount_options }} 0 0"
+    line: "{{ nfs_server }}:{{ item }} {{ item }} nfs {{ local_nfs_ro_mount_options }} 0 0"
     create: yes
   with_items:
     - "{{ local_nfs_mount_paths }}"

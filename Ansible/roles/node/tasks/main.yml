@@ -1,19 +1,27 @@
 ---
-# - name: Zmiana w configu containerd
-  # command: sed -i 's/disabled_plugins/\# disabled_plugins/g' /etc/containerd/config.toml
-
-# - name: Wlaczenie uslugi containerd przy starcie systemu
-  # service: 
-    # name: containerd
-    # enabled: yes
-
 ### DOCKER SWARM JOIN ###
-- name: Docker Swarm - Check if node is part of Swarm
+- name: Docker Swarm - Sprawdz czy node jest czlonkiem clustra
   shell: "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'"
   register: swarm_check_result
   ignore_errors: true
 
-- name: Docker Swarm - Initialization
-  command: "docker swarm join --token {{ lookup('ansible.builtin.file','{{ nfs_write_export_dirs[0] }}/token.txt') }} {{ control_plane_ip }}:2377"
+
+- name: Read file into variable
+  ansible.builtin.slurp:
+    path: '{{ nfs_rw_export_dirs[0] }}/token.txt'
+  register: file_content_result
+
+- name: Display decoded file content
+  set_fact:
+    decoded_file_content: "{{ file_content_result.content | b64decode }}"
+  when: swarm_check_result is not defined or swarm_check_result.rc != 0
+
+- name: Save decoded file content to a variable
+  set_fact:
+    decoded_file_content: "{{ file_content_result.content | b64decode }}"
+  when: swarm_check_result is not defined or swarm_check_result.rc != 0
+
+- name: Docker Swarm - dolaczenie do clustra
+  command: "docker swarm join --token {{ decoded_file_content }} {{ control_plane_ip }}:2377"
   register: swarm_init_result
   when: swarm_check_result is not defined or swarm_check_result.rc != 0

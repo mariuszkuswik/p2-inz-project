@@ -32,7 +32,7 @@
     state: enabled
   loop: "{{ firewall_services }}" 
   when: "firewall_services is defined"
-  notify: "reload firewall"
+#   notify: "reload firewall"
   
 - name: Firewalld - Dodanie portow tcp z listy
   ansible.posix.firewalld:
@@ -41,7 +41,7 @@
     state: enabled
   loop: "{{ firewall_tcp_ports }}" 
   when: "firewall_tcp_ports is defined"
-  notify: "reload firewall"
+#   notify: "reload firewall"
 
 - name: Firewalld - Dodanie portow tcp z listy
   ansible.posix.firewalld:
@@ -50,7 +50,7 @@
     state: enabled
   loop: "{{ firewall_udp_ports }}" 
   when: "firewall_tcp_ports is defined"
-  notify: "reload firewall"
+#   notify: "reload firewall"
 
 ### TODO - dodac notify, firewall powinien byc przeladowany po dodaniu czegos do uslugi
 - name: Firewalld - Przeladowanie uslugi

@@ -44,3 +44,10 @@
     create: yes
   loop: "{{ nfs_export_paths }}"
   notify: "nfs service restart"
+
+
+- name: NFS - Restart nfs-server service
+  service:
+    name: nfs-server
+    state: restarted
+    enabled: yes

@@ -4,7 +4,7 @@
   remote_user: "{{ main_user }}"
   become: yes
   
-#  roles:
+  roles:
 #    - common
 #    - nfs_server 
 #    - control_plane
@@ -15,7 +15,7 @@
   become: yes
 
   roles:
-#    - nfs_client
-#    - common
+    - nfs_client
+    - common
     - node
 

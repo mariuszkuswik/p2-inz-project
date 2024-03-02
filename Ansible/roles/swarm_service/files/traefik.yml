@@ -1,0 +1,8 @@
+entryPoints:
+  web:
+    address: ":80"
+providers:
+  docker:
+    swarmMode: true
+    exposedByDefault: false
+

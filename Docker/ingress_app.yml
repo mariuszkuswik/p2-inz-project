@@ -6,8 +6,6 @@ services:
     image: containous/whoami
     ports:
      - "81:80"
-    networks:
-     - traefik-public 
     deploy:
         labels:
           - traefik.enable=true

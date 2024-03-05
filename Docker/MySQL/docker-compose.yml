@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  mysql-master:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mydatabase
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  mysql-slave:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mydatabase
+      MYSQL_MASTER_HOST: mysql-master
+      MYSQL_MASTER_ROOT_PASSWORD: example
+    depends_on:
+      - mysql-master
+    deploy:
+      replicas: 2
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "3307:3306" # Expose a different port for slave
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+

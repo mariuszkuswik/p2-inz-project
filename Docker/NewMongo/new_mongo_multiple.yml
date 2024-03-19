@@ -1,0 +1,62 @@
+version: '3.6'
+services:
+  mongo1:
+    image: mongo:4.0.0
+    command: mongod --replSet replicaTest --port 7011 --bind_ip_all
+    ports:
+      - "7011:7011"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ans_mariusz
+      MONGO_INITDB_ROOT_PASSWORD: mypassword
+    volumes:
+      - /data/disk1/mongo1/db:/data/db
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.mongo.replica == 1
+    networks:
+      - mongo
+
+  mongo2:
+    image: mongo:4.0.0
+    command: mongod --replSet replicaTest --port 7012 --bind_ip_all
+    ports:
+      - "7012:7012"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ans_mariusz
+      MONGO_INITDB_ROOT_PASSWORD: mypassword
+    volumes:
+      - /data/disk2/mongo2/db:/data/db
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.mongo.replica == 1
+    networks:
+      - mongo
+
+  mongo3:
+    image: mongo:4.0.0
+    command: mongod --replSet replicaTest --port 7013 --bind_ip_all
+    ports:
+      - "7013:7013"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ans_mariusz
+      MONGO_INITDB_ROOT_PASSWORD: mypassword
+    volumes:
+      - /data/disk3/mongo3/db:/data/db
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.mongo.replica == 1
+    networks:
+      - mongo
+
+networks:
+  mongo:
+

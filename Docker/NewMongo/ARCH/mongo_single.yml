@@ -1,0 +1,23 @@
+version: '3.6'
+services:
+  mongo-prod:
+    image: mongo:4.0.0
+    # Require SSL
+    # command: --sslMode requireSSL --sslPEMKeyFile /run/secrets/cert.pem --sslPEMKeyPassword certPass
+    ports:
+      - 7010:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ans_mariusz
+      MONGO_INITDB_ROOT_PASSWORD: mypassword
+    volumes:
+      - /data/disk1/mongo/db:/data/db
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.node.propose==database
+
+# secrets:
+#   cert.pem:
+#     external: true
+

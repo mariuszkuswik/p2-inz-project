@@ -1,0 +1,3 @@
+# defaults file for mongo_service
+stack_full: "mongo_replica_set"
+stack_short: "mongo"

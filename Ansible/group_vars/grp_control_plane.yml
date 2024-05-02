@@ -19,6 +19,7 @@ repos_to_enable:
   - BaseOS
   - Kubernetes
   - docker-ce
+  - mongodb-org
 
 roles_to_install:
   - 'community.general'
@@ -33,6 +34,7 @@ required_packages:
   - "containerd.io"
   # - "iproute-tc"
   - "firewalld"
+  - "mongodb-mongosh"
  
 # Services required to be enabled on boot
 required_services:

@@ -3,7 +3,7 @@ version: '3.6'
 services:
   control-plane:
     image: mongo:4.0.0
-    command: mongod --replSet replicaTest --bind_ip_all
+    # command: mongod --replSet replicaTest --bind_ip_all
     ports:
       - "27017:27017"
     networks:
@@ -18,7 +18,7 @@ services:
 
   node1:
     image: mongo:4.0.0
-    command: mongod --replSet replicaTest --port 27018 --bind_ip_all
+    # command: mongod --replSet replicaTest --port 27018 --bind_ip_all
     ports: 
       - "27018:27018"
     networks:
@@ -33,7 +33,7 @@ services:
 
   node2:
     image: mongo:4.0.0
-    command: mongod --replSet replicaTest --port 27019 --bind_ip_all
+    # command: mongod --replSet replicaTest --port 27019 --bind_ip_all
     ports: 
       - "27019:27019"
     networks:

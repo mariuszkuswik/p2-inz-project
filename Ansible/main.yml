@@ -5,9 +5,9 @@
   become: yes
   
   roles:
-    - common
-    - nfs_server 
-    - control_plane
+#     - common
+#     - nfs_server 
+#     - control_plane
 
 - name: Set up node machines
   hosts: grp_nodes
@@ -15,9 +15,18 @@
   become: yes
 
   roles:
-    - nfs_client
-    - common
-    - node
+#    - nfs_client
+#    - common
+#    - node
+
+- name: "Reboot" 
+  hosts: grp_nodes
+  remote_user: "{{ main_user }}"
+  become: yes
+
+  tasks: 
+    - name: Reboot
+      command: "/usr/sbin/reboot now"
 
 - name: "Set up docker swarm service"
   hosts: grp_control_plane
@@ -26,4 +35,3 @@
 
   roles:
     - mongo_swarm      
-

@@ -52,7 +52,6 @@
   when: "firewall_tcp_ports is defined"
 #   notify: "reload firewall"
 
-### TODO - dodac notify, firewall powinien byc przeladowany po dodaniu czegos do uslugi
 - name: Firewalld - Przeladowanie uslugi
   command: /usr/bin/firewall-cmd --reload
   # listen: "reload firewall"

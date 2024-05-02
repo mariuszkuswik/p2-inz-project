@@ -9,4 +9,4 @@ genisoimage -o "../Meta/ansible.iso" -J -r "../Ansible/"
 
 cd ../Terraform 
 terraform init 
-terraform apply
+terraform apply -lock=false

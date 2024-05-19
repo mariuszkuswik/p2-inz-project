@@ -1,4 +1,4 @@
 ---
 # tasks file for mongo_swarm
 - name: "Create {{ stack_full }} service stack"
-  command: docker stack deploy -c "/mnt/ansible/roles/mongo_swarm/files/mongo_replica_set.yml" "mongo"
+  command: docker stack deploy -c "{{ role_path }}/files/{{ stack_full }}.yml" "{{ stack_short }}"

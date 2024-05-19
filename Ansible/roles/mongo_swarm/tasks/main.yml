@@ -1,8 +1,4 @@
 ---
 # tasks file for mongo_swarm
 - name: "Create {{ stack_full }} service stack"
-  command: docker stack deploy -c "{{ role_path }}/files/{{ stack_full }}.yml" "{{ stack_short }}"
-
-# tasks file for mongo_swarm
-- name: "Create {{ stack_full }} service stack"
-  command: mongosh --eval 'rs.initiate({_id : "replicaTest", members: [{ _id: 0, host: "127.0.0.1:27017" }]});'
+  command: docker stack deploy -c "/mnt/ansible/roles/mongo_swarm/files/mongo_replica_set.yml" "mongo"

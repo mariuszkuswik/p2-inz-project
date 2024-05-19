@@ -5,9 +5,9 @@
   become: yes
   
   roles:
-    - common
-    - nfs_server 
-    - control_plane
+#    - common
+#    - nfs_server 
+#    - control_plane
 
 - name: Set up node machines
   hosts: grp_nodes
@@ -15,9 +15,9 @@
   become: yes
 
   roles:
-    - nfs_client
-    - common
-    - node
+#    - nfs_client
+#    - common
+#    - node
 
 - name: "Reboot" 
   hosts: grp_nodes
@@ -37,3 +37,23 @@
 
   roles:
     - mongo_swarm      
+
+  tasks: 
+    - name: Scale mongo
+      command: "docker service scale mongo_control-plane=0"
+
+    - name: Scale mongo
+      command: "docker service scale mongo_control-plane=1"
+
+    - name: Time sleep
+      ansible.builtin.pause: 
+        seconds: 30
+
+- name: "Set up docker swarm replica set"
+  hosts: grp_control_plane
+  remote_user: "{{ main_user }}"
+  become: no
+
+  roles:
+    - mongo_replica_set
+

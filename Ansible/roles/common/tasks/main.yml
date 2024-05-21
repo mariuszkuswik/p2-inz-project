@@ -64,3 +64,11 @@
 
 - name: SELinux - wylaczenie trwale
   command: "sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux"
+
+### HOSTS ###
+- name: /etc/hosts - dodanie odpowiednich wpisow
+  blockinfile:
+    path: /etc/hosts
+    block: "{{ lookup('file', 'files/hosts') }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: custom hosts"
+    backup: yes

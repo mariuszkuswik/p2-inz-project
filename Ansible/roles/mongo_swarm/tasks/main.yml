@@ -2,3 +2,9 @@
 # tasks file for mongo_swarm
 - name: "Create {{ stack_full }} service stack"
   command: docker stack deploy -c "{{ role_path }}/files/{{ stack_full }}.yml" "{{ stack_short }}"
+
+- name: Przeskalowanie uslugi mongo_control-plane do 0
+  command: "docker service scale mongo_control-plane=0"
+
+- name: Przeskalowanie uslugi mongo_control-plane do 1
+  command: "docker service scale mongo_control-plane=1"

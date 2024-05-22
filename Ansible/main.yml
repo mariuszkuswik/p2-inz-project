@@ -45,10 +45,6 @@
     - name: Scale mongo
       command: "docker service scale mongo_control-plane=1"
 
-    - name: Time sleep
-      ansible.builtin.pause: 
-        seconds: 5
-
 - name: "Set up docker swarm replica set"
   hosts: 192.168.1.201
   remote_user: "{{ main_user }}"

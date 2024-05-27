@@ -9,3 +9,27 @@
     mongosh 192.168.1.10:27017 --eval 'rs.add("{{ item.1 }}:{{ 27018 + item.0 }}")'
   with_indexed_items: "{{ groups['grp_nodes'] }}"
   run_once: true
+
+- name: Create database
+  command: > 
+    mongosh --eval '
+    use mydatabase;
+    db.createCollection("mycollection");
+    db.mycollection.insertMany([
+      { name: "Alice", age: 30 },
+      { name: "Bob", age: 25 },
+      { name: "Charlie", age: 35 }
+    ]);
+    '
+
+- name: Verify database creation
+  command: >
+    mongosh --eval '
+    use mydatabase;
+    db.getCollectionNames();
+    '
+  register: result
+
+- name: Debug database collections
+  debug:
+    var: result.stdout

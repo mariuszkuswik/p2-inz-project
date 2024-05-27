@@ -12,8 +12,7 @@
 
 - name: Create database
   command: > 
-    mongosh --eval '
-    use mydatabase;
+    mongosh mydatabase --eval '
     db.createCollection("mycollection");
     db.mycollection.insertMany([
       { name: "Alice", age: 30 },
@@ -21,11 +20,11 @@
       { name: "Charlie", age: 35 }
     ]);
     '
+  run_once: true
 
 - name: Verify database creation
   command: >
-    mongosh --eval '
-    use mydatabase;
+    mongosh mydatabase --eval '
     db.getCollectionNames();
     '
   register: result

@@ -45,6 +45,23 @@ services:
           - node.hostname == node2
       restart_policy:
         condition: on-failure
+  web:
+    image: my-fedora-nginx
+    ports:
+      - "80:80"
+    networks:
+      - mongo
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
 
 networks:
   mongo:

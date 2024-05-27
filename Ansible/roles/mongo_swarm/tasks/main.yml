@@ -1,5 +1,8 @@
 ---
 # tasks file for mongo_swarm
+- name: "Create custom nginx docker image"
+  command: docker build -t my-fedora-nginx -f "{{ role_path }}/files/nginx.Dockerfile" {{ role_path }}/files
+
 - name: "Create {{ stack_full }} service stack"
   command: docker stack deploy -c "{{ role_path }}/files/{{ stack_full }}.yml" "{{ stack_short }}"
 

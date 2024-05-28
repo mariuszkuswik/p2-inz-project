@@ -11,4 +11,5 @@ cd ../Terraform
 terraform init 
 terraform apply -lock=false
 
-echo "Test"
+cd ../RunAll
+./run_ansible.sh | tee ansible.log

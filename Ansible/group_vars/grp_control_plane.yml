@@ -48,6 +48,7 @@ firewall_tcp_ports:
   # Docker swarm 
   - "2377"
   - "7946"
+  - "80"
 
 firewall_udp_ports: 
   # Docker swarm

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List of MongoDB hosts
-hosts=("mongo1:27017" "mongo2:27018" "mongo3:27019")
+hosts=("192.168.1.10:27017" "192.168.1.201:27018" "192.168.1.202:27019")
 
 # Iterate over hosts to find a working one
 for host in "${hosts[@]}"; do

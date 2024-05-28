@@ -19,6 +19,9 @@ RUN echo "" > /etc/ssl/openssl.cnf
 # Set the environment variable to use the empty OpenSSL configuration file
 ENV OPENSSL_CONF=/etc/ssl/openssl.cnf
 
+# Expose port 80
+EXPOSE 80
+
 # Run the script and start nginx
 CMD ["/bin/bash", "-c", "/usr/local/bin/generate_html.sh && nginx -g 'daemon off;'"]
 

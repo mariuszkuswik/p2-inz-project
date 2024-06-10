@@ -16,7 +16,7 @@ INTERVAL=5    # Interval between retries in seconds
 
 # Function to execute the command via SSH
 execute_remote_command() {
-    ssh -o StrictHostKeyChecking=no -i "$SSH_KEY_PATH" "$REMOTE_HOST" "$COMMAND" -i "$INVENTORY" "$PLAYBOOK"
+    ssh -o StrictHostKeyChecking=no -i "$SSH_KEY_PATH" "$REMOTE_HOST" ""$COMMAND" -i "$INVENTORY" "$PLAYBOOK""
 }
 
 # Start time

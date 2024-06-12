@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Sleep for 90 seconnds to let cloud-init finish"
-# sleep 90 
+sleep 90 
 
 # Remote host details
 REMOTE_HOST="ans_mariusz@192.168.1.10"
@@ -11,7 +11,7 @@ COMMAND="/usr/bin/ansible-playbook"
 INVENTORY="/mnt/ansible/inventory.ini"
 PLAYBOOK="/mnt/ansible/main.yml"
 
-DURATION=180  # Total duration to try in seconds
+DURATION=380  # Total duration to try in seconds
 INTERVAL=5    # Interval between retries in seconds
 
 # Function to execute the command via SSH

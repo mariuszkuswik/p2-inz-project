@@ -6,6 +6,8 @@ services:
     command: mongod --replSet replicaTest --bind_ip_all
     ports:
       - "27017:27017"
+    volumes:
+      - control-plane-data:/data/db
     networks:
       - mongo
     deploy:
@@ -14,13 +16,15 @@ services:
         constraints:
           - node.hostname == control-plane
       restart_policy:
-        condition: on-failure
+        condition: any
 
   node1:
     image: mongo:4.0.0
     command: mongod --replSet replicaTest --port 27018 --bind_ip_all
-    ports: 
+    ports:
       - "27018:27018"
+    volumes:
+      - node1-data:/data/db
     networks:
       - mongo
     deploy:
@@ -29,13 +33,15 @@ services:
         constraints:
           - node.hostname == node1
       restart_policy:
-        condition: on-failure
+        condition: any
 
   node2:
     image: mongo:4.0.0
     command: mongod --replSet replicaTest --port 27019 --bind_ip_all
-    ports: 
+    ports:
       - "27019:27019"
+    volumes:
+      - node2-data:/data/db
     networks:
       - mongo
     deploy:
@@ -44,9 +50,13 @@ services:
         constraints:
           - node.hostname == node2
       restart_policy:
-        condition: on-failure
+        condition: any
+
+volumes:
+  control-plane-data:
+  node1-data:
+  node2-data:
 
 networks:
   mongo:
     driver: overlay
-

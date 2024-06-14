@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Log to file
+exec > >(tee /scripts/init-replica.log) 2>&1
+
+echo "Starting initialization script"
+
 # Wait for MongoDB to start
 sleep 10
 
@@ -35,6 +40,7 @@ find_primary_node() {
       break
     fi
   done
+  echo "Primary node found: $PRIMARY_NODE:$PRIMARY_PORT"
 }
 
 # Find the primary node in the replica set
@@ -42,6 +48,7 @@ find_primary_node
 
 # If no primary node is found, assume this is a new replica set and initialize it
 if [ -z "$PRIMARY_NODE" ]; then
+  echo "No primary node found, initializing new replica set"
   CURRENT_NODE=$(hostname)
   if [ "$CURRENT_NODE" == "control-plane" ]; then
     PRIMARY_NODE="control-plane"
@@ -50,6 +57,7 @@ if [ -z "$PRIMARY_NODE" ]; then
   initialize_replica_set
 else
   # Join the current node to the replica set
+  echo "Joining node to existing replica set"
   CURRENT_NODE=$(hostname)
   if [ "$CURRENT_NODE" == "control-plane" ]; then
     CURRENT_PORT="27017"
@@ -68,4 +76,6 @@ else
     echo "Node is already part of the replica set"
   fi
 fi
+
+echo "Initialization script completed"
 

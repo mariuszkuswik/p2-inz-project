@@ -9,6 +9,7 @@ services:
     volumes:
       - control-plane-data:/data/db
       - ./init-replica.sh:/scripts/init-replica.sh
+      - ./init-replica.log:/scripts/init-replica.log
     networks:
       - mongo
     deploy:
@@ -27,6 +28,7 @@ services:
     volumes:
       - node1-data:/data/db
       - ./init-replica.sh:/scripts/init-replica.sh
+      - ./init-replica.log:/scripts/init-replica.log
     networks:
       - mongo
     deploy:
@@ -45,6 +47,7 @@ services:
     volumes:
       - node2-data:/data/db
       - ./init-replica.sh:/scripts/init-replica.sh
+      - ./init-replica.log:/scripts/init-replica.log
     networks:
       - mongo
     deploy:

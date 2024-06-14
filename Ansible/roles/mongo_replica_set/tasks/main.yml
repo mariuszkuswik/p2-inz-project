@@ -19,11 +19,11 @@
 
 
 
-- name: Add nodes to MongoDB Swarm
-  command: >
-    mongosh 192.168.1.10:27017 --eval 'rs.add("{{ item.1 }}:{{ 27018 + item.0 }}")'
-  with_indexed_items: "{{ groups['grp_nodes'] }}"
-  run_once: true
+#- name: Add nodes to MongoDB Swarm
+#  command: >
+#    mongosh 192.168.1.10:27017 --eval 'rs.add("{{ item.1 }}:{{ 27018 + item.0 }}")'
+#  with_indexed_items: "{{ groups['grp_nodes'] }}"
+#  run_once: true
 
 - name: Create database
   command: > 

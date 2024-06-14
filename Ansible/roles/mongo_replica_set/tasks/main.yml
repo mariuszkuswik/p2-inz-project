@@ -1,8 +1,23 @@
 ---
 # tasks file for mongo_replica_set
 
-- name: "Create {{ stack_full }} service stack"
-  command: "mongosh 192.168.1.10:27017 --eval 'rs.initiate()'"
+# - name: "Create {{ stack_full }} service stack"
+
+#  command: "mongosh 192.168.1.10:27017 --eval 'rs.initiate()'"
+
+
+- name: "Initialize MongoDB Replica Set"
+  command: "mongosh 192.168.1.10:27017 --eval 'rs.initiate(
+    {
+      _id: \"replicaTest\",
+      members: [
+        { _id: 0, host : \"192.168.1.10:27017\" },
+        { _id: 1, host : \"192.168.1.201:27018\" },
+        { _id: 2, host : \"192.168.1.202:27019\" }
+      ]
+    })'"
+
+
 
 - name: Add nodes to MongoDB Swarm
   command: >

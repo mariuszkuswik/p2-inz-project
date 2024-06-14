@@ -1,7 +1,7 @@
 ---
 
 - name: Check if MongoDB replica set is configured
-  command: "mongo --quiet --eval 'rs.status().ok'"
+  command: "mongosh --quiet --eval 'rs.status().ok'"
   register: replica_set_check
   ignore_errors: yes
 

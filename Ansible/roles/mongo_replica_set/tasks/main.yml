@@ -1,4 +1,14 @@
 ---
+
+- name: Check if MongoDB replica set is configured
+  command: "mongo --quiet --eval 'rs.status().ok'"
+  register: replica_set_check
+  ignore_errors: yes
+
+- name: Debug Replica Set Check Result
+  debug:
+    msg: "Replica set check result: {{ replica_set_check.stdout }}"
+
 - name: "Initialize MongoDB Replica Set"
   command: "mongosh 192.168.1.10:27017 --eval 'rs.initiate(
     {
@@ -10,6 +20,7 @@
       ]
     })'"
   run_once: true
+  when: replica_set_check.stdout != "1"
 
 - name: Create database
   command: > 

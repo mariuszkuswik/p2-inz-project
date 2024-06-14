@@ -24,7 +24,7 @@
 
 - name: Create database
   command: > 
-    mongosh mydatabase --eval '
+    mongosh 192.168.1.10:27017 mydatabase --eval '
     db.createCollection("mycollection");
     db.mycollection.insertMany([
       { name: "Alice", age: 30 },

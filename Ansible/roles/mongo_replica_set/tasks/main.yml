@@ -10,7 +10,7 @@
     msg: "Replica set check result: {{ replica_set_check.stdout }}"
 
 - name: "Initialize MongoDB Replica Set"
-  command: "mongosh 192.168.1.10:27017 --eval 'rs.initiate(
+  command: "mongosh --host 192.168.1.10:27017 --eval 'rs.initiate(
     {
       _id: \"replicaTest\",
       members: [

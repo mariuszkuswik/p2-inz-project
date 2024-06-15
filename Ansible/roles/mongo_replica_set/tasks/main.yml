@@ -38,10 +38,11 @@
   set_fact:
     primary_name: "{{ primary_name_command.stdout }}"
 
-
 - name: Debug primary name
   debug:
     msg: "Primary name: {{ primary_name }}"
+
+
 
 - name: Create database
   command: > 

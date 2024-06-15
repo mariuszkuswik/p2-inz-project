@@ -34,11 +34,11 @@
 
 - name: Debug primary name
   debug:
-    msg: "Primary name: {{ primary_name }}"
+    msg: "Primary name: {{ primary_name.stdout }}"
 
 - name: Create database
   command: > 
-    mongosh --host "{{ primary_name }}" mydatabase --eval '
+    mongosh --host "{{ primary_name.stdout }}" mydatabase --eval '
     db.createCollection("mycollection");
     db.mycollection.insertMany([
       { name: "Alice", age: 30 },

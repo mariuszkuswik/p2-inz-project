@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Sleep for 90 seconnds to let cloud-init finish"
-# sleep 90 
+sleep 90 
 
 # Remote host details
 REMOTE_HOST="ans_mariusz@192.168.1.10"

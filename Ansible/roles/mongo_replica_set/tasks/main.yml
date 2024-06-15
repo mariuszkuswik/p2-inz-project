@@ -29,7 +29,7 @@
   when: replica_set_check.stdout == "1"
 
 - name: Extract syncingTo value using shell command
-  shell: "echo '{{ mongo_rs_status.stdout }}' | grep 'syncingTo:' | awk -F'syncingTo: ' '{print $2}' | cut -d \"'\" -f 1 | sed s/,//g |  head -n 1"
+  shell: "echo '{{ mongo_rs_status.stdout }}' | grep 'PRIMARY' -B3 | grep name | awk -F'name: ' '{print $2}' | cut -d \"'\" -f 1 | sed s/,//g |  head -n 1"
   register: primary_name
 
 - name: Debug primary name
@@ -47,6 +47,7 @@
     ]);
     '
   run_once: true
+  ignore_errors: true
 
 - name: Verify database creation
   command: >

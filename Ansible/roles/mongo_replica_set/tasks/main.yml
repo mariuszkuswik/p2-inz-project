@@ -28,15 +28,13 @@
   ignore_errors: yes
   when: replica_set_check.stdout == "1"
 
-- name: Parse the replica set state to get primary name using jq
-  command: >
-    echo '{{ mongo_rs_status.stdout }}' | jq -r '.members[] | select(.stateStr == "PRIMARY") | .name'
+- name: Parse the replica set state to get primary name using Jinja template
+  set_fact:
+    primary_name: "{{ mongo_rs_status.stdout | from_json | json_query(query) }}"
+  vars:
+    query: "members[?stateStr == 'PRIMARY'].name | [0]"
   register: primary_name_command
   ignore_errors: yes
-
-- name: Set primary name fact
-  set_fact:
-    primary_name: "{{ primary_name_command.stdout }}"
 
 - name: Debug primary name
   debug:

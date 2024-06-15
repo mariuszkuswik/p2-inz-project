@@ -22,9 +22,29 @@
   run_once: true
   when: replica_set_check.stdout != "1"
 
+- name: Run mongosh to get replica set state
+  command: mongosh --quiet --eval 'rs.status()'
+  register: mongo_rs_status
+  ignore_errors: yes
+  when: replica_set_check.stdout = "1"
+
+- name: Parse the replica set state to get primary name
+  set_fact:
+    primary_name: >-
+      {{
+        (mongo_rs_status.stdout | from_json)
+        | selectattr('stateStr', 'equalto', 'PRIMARY')
+        | map(attribute='name')
+        | first | default('')
+      }}
+
+- name: Debug primary name
+  debug:
+    msg: "Primary name: {{ primary_name }}"
+
 - name: Create database
   command: > 
-    mongosh --host 192.168.1.10:27017 mydatabase --eval '
+    mongosh --host "{{ primary_name }}" mydatabase --eval '
     db.createCollection("mycollection");
     db.mycollection.insertMany([
       { name: "Alice", age: 30 },

@@ -87,7 +87,7 @@ TASK [control_plane : Wlaczenie uslugi containerd przy starcie systemu] ********
 changed: [192.168.1.10]
 
 TASK [control_plane : Docker Swarm - Check if node is part of Swarm] ***********
-fatal: [192.168.1.10]: FAILED! => {"changed": true, "cmd": "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'", "delta": "0:00:00.082311", "end": "2024-06-15 08:35:54.486420", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 08:35:54.404109", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+fatal: [192.168.1.10]: FAILED! => {"changed": true, "cmd": "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'", "delta": "0:00:00.091242", "end": "2024-06-15 08:56:07.188191", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 08:56:07.096949", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
 ...ignoring
 
 TASK [control_plane : Docker Swarm - Initialization] ***************************
@@ -108,8 +108,8 @@ changed: [192.168.1.10]
 PLAY [Set up node machines] ****************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [192.168.1.202]
 ok: [192.168.1.201]
+ok: [192.168.1.202]
 
 TASK [nfs_client : Install NFS client package] *********************************
 ok: [192.168.1.201]
@@ -128,10 +128,10 @@ changed: [192.168.1.201] => (item=/exports/control-plane)
 changed: [192.168.1.202] => (item=/exports/control-plane)
 
 TASK [nfs_client : Mount NFS read-only shares] *********************************
-changed: [192.168.1.201] => (item=/mnt/repos)
 changed: [192.168.1.202] => (item=/mnt/repos)
-changed: [192.168.1.201] => (item=/mnt/meta)
+changed: [192.168.1.201] => (item=/mnt/repos)
 changed: [192.168.1.202] => (item=/mnt/meta)
+changed: [192.168.1.201] => (item=/mnt/meta)
 changed: [192.168.1.202] => (item=/mnt/ansible)
 changed: [192.168.1.201] => (item=/mnt/ansible)
 
@@ -150,44 +150,44 @@ changed: [192.168.1.201] => (item=/exports/control-plane)
 changed: [192.168.1.202] => (item=/exports/control-plane)
 
 TASK [common : Copy repository configuration files] ****************************
-changed: [192.168.1.201] => (item=AppStream)
 changed: [192.168.1.202] => (item=AppStream)
+changed: [192.168.1.201] => (item=AppStream)
 changed: [192.168.1.202] => (item=BaseOS)
 changed: [192.168.1.201] => (item=BaseOS)
 changed: [192.168.1.202] => (item=Kubernetes)
 changed: [192.168.1.201] => (item=Kubernetes)
 changed: [192.168.1.202] => (item=docker-ce)
 changed: [192.168.1.201] => (item=docker-ce)
-changed: [192.168.1.202] => (item=mongodb-org)
 changed: [192.168.1.201] => (item=mongodb-org)
+changed: [192.168.1.202] => (item=mongodb-org)
 
 TASK [common : Install required packages] **************************************
-changed: [192.168.1.202] => (item=docker-ce)
 changed: [192.168.1.201] => (item=docker-ce)
-changed: [192.168.1.202] => (item=bash-completion)
+changed: [192.168.1.202] => (item=docker-ce)
 changed: [192.168.1.201] => (item=bash-completion)
-ok: [192.168.1.202] => (item=containerd.io)
+changed: [192.168.1.202] => (item=bash-completion)
 ok: [192.168.1.201] => (item=containerd.io)
+ok: [192.168.1.202] => (item=containerd.io)
 changed: [192.168.1.202] => (item=iproute-tc)
 changed: [192.168.1.201] => (item=iproute-tc)
-changed: [192.168.1.202] => (item=firewalld)
 changed: [192.168.1.201] => (item=firewalld)
-changed: [192.168.1.202] => (item=mongodb-mongosh)
+changed: [192.168.1.202] => (item=firewalld)
 changed: [192.168.1.201] => (item=mongodb-mongosh)
+changed: [192.168.1.202] => (item=mongodb-mongosh)
 
 TASK [common : Enable required services now and on boot] ***********************
-changed: [192.168.1.202] => (item=docker)
 changed: [192.168.1.201] => (item=docker)
-changed: [192.168.1.202] => (item=firewalld)
+changed: [192.168.1.202] => (item=docker)
 changed: [192.168.1.201] => (item=firewalld)
+changed: [192.168.1.202] => (item=firewalld)
 
 TASK [common : Firewalld - Dodanie serwisów z listy] ***************************
 skipping: [192.168.1.201]
 skipping: [192.168.1.202]
 
 TASK [common : Firewalld - Dodanie portow tcp z listy] *************************
-changed: [192.168.1.202] => (item=2377)
 changed: [192.168.1.201] => (item=2377)
+changed: [192.168.1.202] => (item=2377)
 changed: [192.168.1.201] => (item=7946)
 changed: [192.168.1.202] => (item=7946)
 changed: [192.168.1.201] => (item=80)
@@ -216,9 +216,9 @@ changed: [192.168.1.201]
 changed: [192.168.1.202]
 
 TASK [node : Docker Swarm - Sprawdz czy node jest czlonkiem clustra] ***********
-fatal: [192.168.1.201]: FAILED! => {"changed": true, "cmd": "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'", "delta": "0:00:00.083693", "end": "2024-06-15 08:38:57.124622", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 08:38:57.040929", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+fatal: [192.168.1.201]: FAILED! => {"changed": true, "cmd": "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'", "delta": "0:00:00.083807", "end": "2024-06-15 08:59:17.932484", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 08:59:17.848677", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
 ...ignoring
-fatal: [192.168.1.202]: FAILED! => {"changed": true, "cmd": "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'", "delta": "0:00:00.086584", "end": "2024-06-15 08:38:57.139339", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 08:38:57.052755", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+fatal: [192.168.1.202]: FAILED! => {"changed": true, "cmd": "docker info | grep -v 'inactive' | grep '^.*Swarm.*active'", "delta": "0:00:00.085616", "end": "2024-06-15 08:59:17.958048", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 08:59:17.872432", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
 ...ignoring
 
 TASK [node : Read file into variable] ******************************************
@@ -240,8 +240,8 @@ changed: [192.168.1.202]
 PLAY [Reboot] ******************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [192.168.1.201]
 ok: [192.168.1.202]
+ok: [192.168.1.201]
 
 TASK [Reboot] ******************************************************************
 changed: [192.168.1.202]
@@ -273,7 +273,7 @@ TASK [Gathering Facts] *********************************************************
 ok: [192.168.1.201]
 
 TASK [mongo_replica_set : Check if MongoDB replica set is configured] **********
-fatal: [192.168.1.201]: FAILED! => {"changed": true, "cmd": ["mongosh", "--host", "192.168.1.10:27017", "--quiet", "--eval", "rs.status().ok"], "delta": "0:00:00.535714", "end": "2024-06-15 08:40:48.576499", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 08:40:48.040785", "stderr": "MongoServerError: no replset config has been received", "stderr_lines": ["MongoServerError: no replset config has been received"], "stdout": "", "stdout_lines": []}
+fatal: [192.168.1.201]: FAILED! => {"changed": true, "cmd": ["mongosh", "--host", "192.168.1.10:27017", "--quiet", "--eval", "rs.status().ok"], "delta": "0:00:00.607236", "end": "2024-06-15 09:01:04.883069", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 09:01:04.275833", "stderr": "MongoServerError: no replset config has been received", "stderr_lines": ["MongoServerError: no replset config has been received"], "stdout": "", "stdout_lines": []}
 ...ignoring
 
 TASK [mongo_replica_set : Debug Replica Set Check Result] **********************
@@ -285,14 +285,24 @@ TASK [mongo_replica_set : Initialize MongoDB Replica Set] **********************
 changed: [192.168.1.201]
 
 TASK [mongo_replica_set : Run mongosh to get replica set state] ****************
-skipping: [192.168.1.201]
+changed: [192.168.1.201]
 
 TASK [mongo_replica_set : Extract syncingTo value using shell command] *********
-fatal: [192.168.1.201]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'dict object' has no attribute 'stdout'. 'dict object' has no attribute 'stdout'\n\nThe error appears to be in '/mnt/ansible/roles/mongo_replica_set/tasks/main.yml': line 31, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- name: Extract syncingTo value using shell command\n  ^ here\n"}
+changed: [192.168.1.201]
+
+TASK [mongo_replica_set : Debug primary name] **********************************
+ok: [192.168.1.201] => {
+    "msg": "Primary name: "
+}
+
+TASK [mongo_replica_set : Create database] *************************************
+fatal: [192.168.1.201]: FAILED! => {"changed": true, "cmd": ["mongosh", "--host", "", "mydatabase", "--eval", " db.createCollection(\"mycollection\"); db.mycollection.insertMany([\n  { name: \"Alice\", age: 30 },\n  { name: \"Bob\", age: 25 },\n  { name: \"Charlie\", age: 35 }\n]); "], "delta": "0:00:00.498059", "end": "2024-06-15 09:01:08.457962", "msg": "non-zero return code", "rc": 1, "start": "2024-06-15 09:01:07.959903", "stderr": "MongoServerError: not master", "stderr_lines": ["MongoServerError: not master"], "stdout": "", "stdout_lines": []}
+
+NO MORE HOSTS LEFT *************************************************************
 
 PLAY RECAP *********************************************************************
 192.168.1.10               : ok=32   changed=27   unreachable=0    failed=0    skipped=1    rescued=0    ignored=1   
-192.168.1.201              : ok=27   changed=19   unreachable=0    failed=1    skipped=2    rescued=0    ignored=2   
+192.168.1.201              : ok=30   changed=21   unreachable=0    failed=1    skipped=1    rescued=0    ignored=2   
 192.168.1.202              : ok=23   changed=17   unreachable=0    failed=0    skipped=1    rescued=0    ignored=1   
 
 Command failed. Retrying in 5 seconds...

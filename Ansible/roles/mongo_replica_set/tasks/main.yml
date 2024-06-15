@@ -22,6 +22,10 @@
   run_once: true
   when: replica_set_check.stdout != "1"
 
+- name: Sleep to allow the replica to be set
+  ansible.builtin.pause:
+    seconds: 10
+
 - name: Run mongosh to get replica set state
   command: mongosh --quiet --eval 'rs.status()'
   register: mongo_rs_status
@@ -46,7 +50,7 @@
     ]);
     '
   run_once: true
-  when: replica_set_check.stdout != "1"
+  ignore_errors: true
 
 - name: Verify database creation
   command: >

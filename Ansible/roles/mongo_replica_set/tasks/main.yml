@@ -31,12 +31,10 @@
 - name: Parse the replica set state to get primary name
   set_fact:
     primary_name: >-
-      {{
-        (mongo_rs_status.stdout | from_json)
-        | selectattr('stateStr', 'equalto', 'PRIMARY')
-        | map(attribute='name')
-        | first | default('')
-      }}
+      {{ (mongo_rs_status.stdout | from_json).members
+         | selectattr('stateStr', 'equalto', 'PRIMARY')
+         | map(attribute='name')
+         | first | default('') }}
 
 - name: Debug primary name
   debug:

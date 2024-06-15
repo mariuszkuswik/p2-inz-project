@@ -28,19 +28,13 @@
   ignore_errors: yes
   when: replica_set_check.stdout == "1"
 
-- name: Parse the replica set state to get primary name using Jinja template
-  set_fact:
-    primary_name: "{{ mongo_rs_status.stdout | from_json | json_query(query) }}"
-  vars:
-    query: "members[?stateStr == 'PRIMARY'].name | [0]"
-  register: primary_name_command
-  ignore_errors: yes
+- name: Extract syncingTo value using shell command
+  shell: "echo '{{ mongo_rs_status.stdout }}' | grep 'syncingTo:' | awk -F'syncingTo: ' '{print $2}' | cut -d \"'\" -f 1 | sed s/,//g |  head -n 1"
+  register: primary_name
 
 - name: Debug primary name
   debug:
     msg: "Primary name: {{ primary_name }}"
-
-
 
 - name: Create database
   command: > 

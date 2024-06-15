@@ -26,7 +26,7 @@
   command: mongosh --quiet --eval 'rs.status()'
   register: mongo_rs_status
   ignore_errors: yes
-  when: replica_set_check.stdout = "1"
+  when: replica_set_check.stdout == "1"
 
 - name: Parse the replica set state to get primary name
   set_fact:

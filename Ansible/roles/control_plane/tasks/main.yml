@@ -30,7 +30,7 @@
 ###
 
 ### SWARM - Get the join token ###
-- name: Docker Swarm - Pobranie komendy pozwalajacej na dolaczenie do clustra 
+- name: Docker Swarm - Pobranie tokena, pozwalajacego na dolaczenie do clustra 
   command: 
     cmd: "docker swarm join-token worker -q"
   register: tmp_swarm_join_token_worker  

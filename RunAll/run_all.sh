@@ -12,4 +12,4 @@ terraform init
 terraform apply -lock=false
 
 cd ../RunAll
-./run_ansible.sh | tee ansible.log
+./run_ansible.sh 

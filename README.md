@@ -1,13 +1,13 @@
 # Instalacja 
-# Utworzenie repozytoriów
+## Utworzenie repozytoriów
 *Wszystkie kroki przedstawione są dla RH9/Rocky9*
 
-## Instalacja repozytorium epel
+### Instalacja repozytorium epel
 ```bash
 dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 ```
 
-## Podpięcie repozytorium mongo
+### Podpięcie repozytorium mongo
 ```bash
 cat >/etc/yum.repos.d/mongo.repo <<EOF
 [mongo]
@@ -19,7 +19,7 @@ gpgkey=https://pgp.mongodb.com/server-7.0.asc
 EOF
 ```
 
-## Podpięcie repozytorium terraform
+### Podpięcie repozytorium terraform
 ```bash
 cat /etc/yum.repos.d/hashicorp.repo <<EOF
 [hashicorp]
@@ -31,7 +31,7 @@ gpgkey=https://rpm.releases.hashicorp.com/gpg
 EOF
 ```
 
-# Instalacja paczek
+## Instalacja paczek
 ```bash
 dnf install qemu-kvm  libvirt virt-install terraform ansible mongocli.x86_64 genisoimage -y 
 ```

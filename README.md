@@ -1,6 +1,11 @@
 # TODO 
 - Dodać wszystkie repozytoria do porjektu, w katalogu Meta/repo_files można je wrzucić
-
+- Utworzyć nową sieć bridgenet!
+- Upewnić się czy wirtualizacja na danym hoście jest włączona, koniecne dla działania Terraform, sprawdzić to możemy przez:
+```bash
+egrep -wo 'vmx|svm' /proc/cpuinfo
+lsmod | grep kvm
+```
 
 # Instalacja 
 ## WAŻNE 
@@ -48,7 +53,7 @@ EOF
 
 ## Instalacja paczek
 ```bash
-dnf install qemu-kvm  libvirt virt-install terraform ansible mongocli.x86_64 genisoimage -y 
+dnf install qemu-kvm  libvirt virt-install terraform ansible mongocli.x86_64 genisoimage virt-manager -y 
 ```
 
 ## Usługi
@@ -95,4 +100,21 @@ export TF_VAR_node_disk_path="$HOME"/p2/terra_kvm/meta/rhel/rhel-8-control-plane
 export TF_VAR_repo_path="$HOME"/services/p2-files/terra_kvm/meta/repo/repos.iso
 export TF_VAR_meta_path="$HOME"/p2-inz-project/Meta/meta.iso
 export TF_VAR_ansible_path="$HOME"/p2-inz-project/Meta/ansible.iso
+```
+
+
+# Tworzenie sieci!
+
+
+```xml
+<network>
+  <name>mynet</name>
+  <bridge name="virbr10" />
+  <forward mode="nat"/> <!-- or 'isolated' or 'route' -->
+  <ip address="192.168.100.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="192.168.100.100" end="192.168.100.200" />
+    </dhcp>
+  </ip>
+</network>
 ```

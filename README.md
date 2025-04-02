@@ -1,9 +1,16 @@
+# TODO 
+- Dodać wszystkie repozytoria do porjektu, w katalogu Meta/repo_files można je wrzucić
+
+
 # Instalacja 
 ## WAŻNE 
-Przed zainstaowaniem należy pobrać obraz rhel8 w formacie qcow2
-
+1. Przed zainstaowaniem należy pobrać obraz rhel8 w formacie qcow2
+```
 ls p2-files/rhel-8.10-x86_64-kvm.qcow2
-
+```
+ 
+2. Domyślnym katalogiem wykonywania wszystkich komend jest katalog:
+$HOME/services/p2-inz-project 
 
 ## Utworzenie repozytoriów
 *Wszystkie kroki przedstawione są dla RH9/Rocky9*
@@ -77,3 +84,9 @@ virsh --connect qemu:///system pool-list
 
 
 ## Zainicjowanie zmiennych
+```bash
+export TF_VAR_node_disk_path="$HOME"/p2/terra_kvm/meta/rhel/rhel-8-control-plane.qcow2
+export TF_VAR_repo_path="$HOME"/p2/terra_kvm/meta/repo/repos.iso
+export TF_VAR_meta_path="$HOME"/p2-inz-project/Meta/meta.iso
+export TF_VAR_ansible_path="$HOME"/p2-inz-project/Meta/ansible.iso
+```

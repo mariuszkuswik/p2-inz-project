@@ -10,7 +10,9 @@ ls p2-files/rhel-8.10-x86_64-kvm.qcow2
 ```
  
 2. Domyślnym katalogiem wykonywania wszystkich komend jest katalog:
+```
 $HOME/services/p2-inz-project 
+```
 
 ## Utworzenie repozytoriów
 *Wszystkie kroki przedstawione są dla RH9/Rocky9*
@@ -81,12 +83,16 @@ virsh --connect qemu:///system pool-list
  default   active   yes
 ```
 
+## Pobranie obrazu rhel
+[Link bezpośredni do obrazu qcow2 RedHat 8.1](https://access.cdn.redhat.com/content/origin/files/sha256/82/820853871801754056642ead33834fbe5640421b57e07f2c084684f4d1a7d2fe/rhel-8.10-x86_64-kvm.qcow2?user=a4836c0c2db2a65c751f9256436b1e82&_auth_=1743634281_b7e43a9073e6953440d169446614b734)
 
+# Uruchamianie
 
 ## Zainicjowanie zmiennych
+Zmienne należy zmienić w zależności od potrzeb
 ```bash
 export TF_VAR_node_disk_path="$HOME"/p2/terra_kvm/meta/rhel/rhel-8-control-plane.qcow2
-export TF_VAR_repo_path="$HOME"/p2/terra_kvm/meta/repo/repos.iso
+export TF_VAR_repo_path="$HOME"/services/p2-files/terra_kvm/meta/repo/repos.iso
 export TF_VAR_meta_path="$HOME"/p2-inz-project/Meta/meta.iso
 export TF_VAR_ansible_path="$HOME"/p2-inz-project/Meta/ansible.iso
 ```

@@ -1,4 +1,10 @@
 # Instalacja 
+## WAŻNE 
+Przed zainstaowaniem należy pobrać obraz rhel8 w formacie qcow2
+
+ls p2-files/rhel-8.10-x86_64-kvm.qcow2
+
+
 ## Utworzenie repozytoriów
 *Wszystkie kroki przedstawione są dla RH9/Rocky9*
 
@@ -35,3 +41,39 @@ EOF
 ```bash
 dnf install qemu-kvm  libvirt virt-install terraform ansible mongocli.x86_64 genisoimage -y 
 ```
+
+## Usługi
+```bash
+systemctl enable --now libvirtd
+systemctl enable --now virtqemud
+```
+
+## Aktuany user
+Dodanie aktualnego użytkownika do grupy libvirt w celu nadania mu uprawnień do tworzenia zasobów
+```bash
+usermod -aG libvirt $USER
+```
+
+## Utworzenie storage poola virsh
+Nazwa pooli ustawiona w terraform to default, katalog docelowy może być dowolny, tutaj podaję przykład katalogu "$HOME"/virsh-pool-default
+```bash
+mkdir "$HOME"/virsh-pool-default
+# Terraform ma podaną sesję system, więc w przypadku virsh poole również tworzymy przez system
+virsh --connect qemu:///system pool-define-as --name default --type dir --target "$HOME"/virsh-pool-default
+virsh --connect qemu:///system pool-autostart default
+virsh --connect qemu:///system pool-start default
+```
+
+Wykonujemy komendę potwierdzającą stworzenie poola
+```bash
+virsh --connect qemu:///system pool-list 
+
+### Powinno zostać wyświetlone to co poniżej
+ Name      State    Autostart
+-------------------------------
+ default   active   yes
+```
+
+
+
+## Zainicjowanie zmiennych

@@ -7,6 +7,8 @@ egrep -wo 'vmx|svm' /proc/cpuinfo
 lsmod | grep kvm
 ```
 
+export LIBVIRT_DEFAULT_URI=qemu:///system
+
 # Instalacja 
 ## WAŻNE 
 1. Przed zainstaowaniem należy pobrać obraz rhel8 w formacie qcow2
@@ -71,9 +73,14 @@ usermod -aG libvirt $USER
 ## Utworzenie storage poola virsh
 Nazwa pooli ustawiona w terraform to default, katalog docelowy może być dowolny, tutaj podaję przykład katalogu "$HOME"/virsh-pool-default
 ```bash
-mkdir "$HOME"/virsh-pool-default
+mkdir -p /var/lib/libvirt/images/virsh-pool-default
+
+# Skopiowanie tutaj wszystkich obrazów qcow i iso (?) 
+# Nadanie uprawnień userowi 107 
+
 # Terraform ma podaną sesję system, więc w przypadku virsh poole również tworzymy przez system
-virsh --connect qemu:///system pool-define-as --name default --type dir --target "$HOME"/virsh-pool-default
+virsh --connect qemu:///system pool-define-as --name default --type dir --target /var/lib/libvirt/images/virsh-pool-default
+
 virsh --connect qemu:///system pool-autostart default
 virsh --connect qemu:///system pool-start default
 ```
@@ -118,3 +125,47 @@ export TF_VAR_ansible_path="$HOME"/p2-inz-project/Meta/ansible.iso
   </ip>
 </network>
 ```
+
+
+
+<network>
+  <name>bridgenet</name>
+    <forward mode='bridge'/>
+    <bridge name='virbr0'/>
+</network>
+
+
+
+virsh net-define bridgenet.xml
+virsh net-start bridgenet
+virsh net-autostart bridgenet
+
+
+
+
+
+
+│ Error: error creating libvirt domain: Cannot access storage file '/home/mariusz/p2-inz-project/Meta/ansible.iso': No such file or directory
+│ 
+│   with module.control_plane.libvirt_domain.control_plane,
+│   on modules/control_plane/main.tf line 20, in resource "libvirt_domain" "control_plane":
+│   20: resource "libvirt_domain" "control_plane" {
+│ 
+╵
+╷
+│ Error: error creating libvirt domain: Cannot access storage file '/home/mariusz/virsh-pool-default/node1.qcow2' (as uid:107, gid:107): Permission denied
+│ 
+│   with module.node.libvirt_domain.node[0],
+│   on modules/node/main.tf line 32, in resource "libvirt_domain" "node":
+│   32: resource "libvirt_domain" "node" {
+│ 
+╵
+╷
+│ Error: error creating libvirt domain: Cannot access storage file '/home/mariusz/virsh-pool-default/node2.qcow2' (as uid:107, gid:107): Permission denied
+│ 
+│   with module.node.libvirt_domain.node[1],
+│   on modules/node/main.tf line 32, in resource "libvirt_domain" "node":
+│   32: resource "libvirt_domain" "node" {
+│ 
+╵
+Sleep for 90 seconnds to let cloud-init finish

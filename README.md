@@ -9,6 +9,13 @@ lsmod | grep kvm
 
 export LIBVIRT_DEFAULT_URI=qemu:///system
 
+
+# Utworzenie interfejsu sieciowego bridge?
+sudo nmcli connection add type bridge con-name nm-bridge2 ifname nm-bridge2
+sudo nmcli connection up nm-bridge2
+
+
+
 # Instalacja 
 ## WAŻNE 
 1. Przed zainstaowaniem należy pobrać obraz rhel8 w formacie qcow2
@@ -145,27 +152,17 @@ virsh net-autostart bridgenet
 
 
 
-│ Error: error creating libvirt domain: Cannot access storage file '/home/mariusz/p2-inz-project/Meta/ansible.iso': No such file or directory
-│ 
-│   with module.control_plane.libvirt_domain.control_plane,
-│   on modules/control_plane/main.tf line 20, in resource "libvirt_domain" "control_plane":
-│   20: resource "libvirt_domain" "control_plane" {
-│ 
-╵
-╷
-│ Error: error creating libvirt domain: Cannot access storage file '/home/mariusz/virsh-pool-default/node1.qcow2' (as uid:107, gid:107): Permission denied
-│ 
-│   with module.node.libvirt_domain.node[0],
+
+│ Error: error creating libvirt domain: Requested operation is not valid: network 'bridgenet' is not active                                                                                                                            
+│                                                                                                                                                                                                                                      
+│   with module.node.libvirt_domain.node[1],                                                                                                                                                                                           
+│   on modules/node/main.tf line 32, in resource "libvirt_domain" "node":                                                                                                                                                              
+│   32: resource "libvirt_domain" "node" {                                                                                                                                                                                             
+│                                                                                                                                                                                                                                      
+╵                                                                                                                                                                                                                                      
+╷                                                                                                                                                                                                                                      
+│ Error: error creating libvirt domain: Requested operation is not valid: network 'bridgenet' is not active                                                                                                                            
+│                                                                                                                                                                                                                                      
+│   with module.node.libvirt_domain.node[0],                                                                                                                                                                                           
 │   on modules/node/main.tf line 32, in resource "libvirt_domain" "node":
 │   32: resource "libvirt_domain" "node" {
-│ 
-╵
-╷
-│ Error: error creating libvirt domain: Cannot access storage file '/home/mariusz/virsh-pool-default/node2.qcow2' (as uid:107, gid:107): Permission denied
-│ 
-│   with module.node.libvirt_domain.node[1],
-│   on modules/node/main.tf line 32, in resource "libvirt_domain" "node":
-│   32: resource "libvirt_domain" "node" {
-│ 
-╵
-Sleep for 90 seconnds to let cloud-init finish

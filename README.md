@@ -6,6 +6,7 @@
 egrep -wo 'vmx|svm' /proc/cpuinfo
 lsmod | grep kvm
 ```
+- Zmienić domyślne ścieżki dla ansible.iso itd., + uprawnienia do tych plików
 
 export LIBVIRT_DEFAULT_URI=qemu:///system
 
@@ -166,3 +167,33 @@ virsh net-autostart bridgenet
 │   with module.node.libvirt_domain.node[0],                                                                                                                                                                                           
 │   on modules/node/main.tf line 32, in resource "libvirt_domain" "node":
 │   32: resource "libvirt_domain" "node" {
+
+
+
+
+# Virsh destroy
+```bash
+
+#!/bin/bash
+
+# Virsh domains
+virsh shutdown control-plane
+virsh undefine control-plane
+
+virsh shutdown node1
+virsh undefine node1
+
+virsh shutdown node2
+virsh undefine node2
+# Volumes
+virsh vol-delete control_plane.iso default
+virsh vol-delete node1.iso default
+virsh vol-delete node2.iso default
+# Network
+virsh net-undefine internal
+virsh net-destroy internal
+
+
+```
+
+

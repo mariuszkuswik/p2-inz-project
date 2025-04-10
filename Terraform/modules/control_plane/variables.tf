@@ -14,17 +14,20 @@ variable "control_plane_disk_path" {
 
 variable "repo_path" {
   type    = string
-  default = "/home/mariusz/p2-meta/repo/repos.iso"
+  default = "/var/lib/libvirt/images/virsh-pool-default/repo/repos.iso"
+#  default = "/home/mariusz/p2-meta/repo/repos.iso"
 }
 
 variable "meta_path" {
   type    = string
-  default = "/home/mariusz/p2-inz-project/Meta/meta.iso"
+  default = "/var/lib/libvirt/images/virsh-pool-default/meta.iso"
+#  default = "/home/mariusz/p2-inz-project/Meta/meta.iso"
 }
 
 variable "ansible_path" {
   type    = string
-  default = "/home/mariusz/p2-inz-project/Meta/ansible.iso"
+  default = "/var/lib/libvirt/images/virsh-pool-default/ansible.iso"
+#  default = "/home/mariusz/p2-inz-project/Meta/ansible.iso"
 }
 
 variable "autostart" { 

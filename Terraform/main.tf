@@ -1,7 +1,7 @@
-module "network" {
-  source            = "./modules/network"
-  network_name      = "bridgenet"
-}
+#module "network" {
+#  source            = "./modules/network"
+#  network_name      = "bridgenet"
+#}
 
 module "control_plane" {
   source            = "./modules/control_plane"

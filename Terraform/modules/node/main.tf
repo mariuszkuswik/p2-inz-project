@@ -37,6 +37,8 @@ resource "libvirt_domain" "node" {
   vcpu   = 1
   autostart = var.autostart
 
+  machine = "pc"
+
   network_interface {
     network_name  = var.network_name
     hostname      = format("node%d", count.index + 1)

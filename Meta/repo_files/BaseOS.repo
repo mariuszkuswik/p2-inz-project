@@ -1,5 +1,0 @@
-[BaseOS]
-name=BaseOS
-baseurl=file:///mnt/repos/BaseOS
-enabled=1
-gpgcheck=0

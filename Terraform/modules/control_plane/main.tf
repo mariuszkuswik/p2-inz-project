@@ -23,6 +23,8 @@ resource "libvirt_domain" "control_plane" {
   vcpu   = 2
   autostart = var.autostart
 
+  machine = "pc"
+
   network_interface {
     network_name = var.network_name 
     hostname     = var.hostname
@@ -34,9 +36,9 @@ resource "libvirt_domain" "control_plane" {
     volume_id = libvirt_volume.control_plane_image.id
   }
 
-  disk {
-    file = var.repo_path
-  }
+#  disk {
+#    file = var.repo_path
+#  }
 
   disk {
     file = var.meta_path

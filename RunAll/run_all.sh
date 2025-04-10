@@ -1,11 +1,14 @@
 #!/bin/bash
 
-rm Meta/meta.iso Meta/ansible.iso
+sudo rm /var/lib/libvirt/images/virsh-pool-default/meta.iso /var/lib/libvirt/images/virsh-pool-default/ansible.iso
 
 # Meta files iso
-genisoimage -o "../Meta/meta.iso" -J -r "../Meta/" 
+sudo genisoimage -o "/var/lib/libvirt/images/virsh-pool-default/meta.iso" -J -r "../Meta/" 
 # Ansible scripts iso
-genisoimage -o "../Meta/ansible.iso" -J -r "../Ansible/" 
+sudo genisoimage -o "/var/lib/libvirt/images/virsh-pool-default/ansible.iso" -J -r "../Ansible/" 
+
+sudo chown 107:107 /var/lib/libvirt/images/virsh-pool-default/meta.iso
+sudo chown 107:107 /var/lib/libvirt/images/virsh-pool-default/ansible.iso
 
 cd ../Terraform 
 terraform init 

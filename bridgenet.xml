@@ -1,0 +1,6 @@
+<network>
+  <name>bridgenet</name>
+  <forward mode="bridge"/>
+  <bridge name="nm-bridge2"/>
+ </network>
+

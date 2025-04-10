@@ -1,5 +1,0 @@
-[AppStream]
-name=AppStream
-baseurl=file:///mnt/repos/AppStream
-enabled=1
-gpgcheck=0

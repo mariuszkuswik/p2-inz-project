@@ -1,5 +1,6 @@
 [AppStream]
 name=AppStream
-baseurl=file:///mnt/repos/AppStream
+baseurl=https://dl.rockylinux.org/pub/rocky/8/AppStream/x86_64/os/
 enabled=1
 gpgcheck=0
+sslverify=0

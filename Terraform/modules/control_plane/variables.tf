@@ -10,6 +10,7 @@ variable "network_name" {
 
 variable "control_plane_disk_path" {
   type    = string
+  default = "/var/lib/libvirt/images/virsh-pool-default/control-plane.iso"
 }
 
 variable "mounts_path" {
@@ -17,23 +18,23 @@ variable "mounts_path" {
   default = "/var/lib/libvirt/images/virsh-pool-default/mounts.iso"
 }
 
-variable "repo_path" {
-  type    = string
-  default = "/var/lib/libvirt/images/virsh-pool-default/repo/repos.iso"
+# variable "repo_path" {
+#  type    = string
+#  default = "/var/lib/libvirt/images/virsh-pool-default/repo/repos.iso"
 #  default = "/home/mariusz/p2-meta/repo/repos.iso"
-}
+#}
 
-variable "meta_path" {
-  type    = string
-  default = "/var/lib/libvirt/images/virsh-pool-default/meta.iso"
+# variable "meta_path" {
+#  type    = string
+#  default = "/var/lib/libvirt/images/virsh-pool-default/meta.iso"
 #  default = "/home/mariusz/p2-inz-project/Meta/meta.iso"
-}
+#}
 
-variable "ansible_path" {
-  type    = string
-  default = "/var/lib/libvirt/images/virsh-pool-default/ansible.iso"
+#variable "ansible_path" {
+#  type    = string
+#  default = "/var/lib/libvirt/images/virsh-pool-default/ansible.iso"
 #  default = "/home/mariusz/p2-inz-project/Meta/ansible.iso"
-}
+#}
 
 variable "autostart" { 
   type = bool

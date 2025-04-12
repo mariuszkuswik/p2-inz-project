@@ -1,5 +1,6 @@
 [BaseOS]
 name=BaseOS
-baseurl=file:///mnt/repos/BaseOS
+baseurl=https://download.rockylinux.org/pub/rocky/8/BaseOS/x86_64/os/
 enabled=1
 gpgcheck=0
+sslverify=0

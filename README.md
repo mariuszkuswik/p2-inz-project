@@ -10,10 +10,23 @@ lsmod | grep kvm
 
 export LIBVIRT_DEFAULT_URI=qemu:///system
 
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 
 # Utworzenie interfejsu sieciowego bridge?
 sudo nmcli connection add type bridge con-name nm-bridge2 ifname nm-bridge2
 sudo nmcli connection up nm-bridge2
+
+
+virsh net-start bridgenet
+virsh net-autostart bridgenet
+
+
+sudo ip link add name nm-bridge2 type bridge
+sudo ip link set nm-bridge2 up
+sudo ip addr add 192.168.1.150/24 dev nm-bridge2
+
+sudo ip route add 192.168.1.0/24 dev nm-bridge2 metric 100
+
 
 
 
@@ -63,7 +76,7 @@ EOF
 
 ## Instalacja paczek
 ```bash
-dnf install qemu-kvm  libvirt virt-install terraform ansible mongocli.x86_64 genisoimage virt-manager -y 
+dnf install qemu-kvm  libvirt virt-install terraform ansible mongocli.x86_64 genisoimage virt-manager bridge-utils -y 
 ```
 
 ## Usługi
@@ -154,22 +167,6 @@ virsh net-autostart bridgenet
 
 
 
-│ Error: error creating libvirt domain: Requested operation is not valid: network 'bridgenet' is not active                                                                                                                            
-│                                                                                                                                                                                                                                      
-│   with module.node.libvirt_domain.node[1],                                                                                                                                                                                           
-│   on modules/node/main.tf line 32, in resource "libvirt_domain" "node":                                                                                                                                                              
-│   32: resource "libvirt_domain" "node" {                                                                                                                                                                                             
-│                                                                                                                                                                                                                                      
-╵                                                                                                                                                                                                                                      
-╷                                                                                                                                                                                                                                      
-│ Error: error creating libvirt domain: Requested operation is not valid: network 'bridgenet' is not active                                                                                                                            
-│                                                                                                                                                                                                                                      
-│   with module.node.libvirt_domain.node[0],                                                                                                                                                                                           
-│   on modules/node/main.tf line 32, in resource "libvirt_domain" "node":
-│   32: resource "libvirt_domain" "node" {
-
-
-
 
 # Virsh destroy
 ```bash
@@ -195,5 +192,159 @@ virsh net-destroy internal
 
 
 ```
+
+
+
+
+
+
+To add a bridge connection (`nm-bridge2`) on **RHEL** using **`NetworkManager`** while keeping your physical interface (`ens18`) unchanged, here's how you can proceed. We’ll create a bridge device and connect `ens18` as a **port** to the bridge, but ensure that `ens18`’s settings (e.g., IP, etc.) move to the bridge, while the interface itself is not renamed or changed.
+
+---
+
+### 🧱 Step-by-step Instructions
+
+1. **Create the bridge device**:
+   ```bash
+   nmcli connection add type bridge autoconnect yes con-name nm-bridge2 ifname nm-bridge2
+   ```
+
+2. **Create a bridge-slave (port) connection for ens18**:
+   This does **not** change `ens18`, it just associates it as a port to the bridge.
+   ```bash
+   nmcli connection add type ethernet slave-type bridge con-name ens18-slave ifname ens18 master nm-bridge2
+   ```
+
+3. **Optionally, move existing IP configuration from `ens18` to `nm-bridge2`**:
+   If `ens18` already has an IP (either static or DHCP), delete or modify its connection profile and apply it to `nm-bridge2`.
+
+   Example: Set DHCP on bridge:
+   ```bash
+   nmcli connection modify nm-bridge2 ipv4.method auto
+   nmcli connection modify nm-bridge2 ipv6.method ignore
+   ```
+
+4. **Disable and delete any existing standalone connection on `ens18` (if needed)**:
+   (Only if `ens18` is already managed by a separate profile and might conflict)
+   ```bash
+   nmcli connection delete ens18
+   ```
+
+5. **Bring up the new connections**:
+   ```bash
+   nmcli connection up nm-bridge2
+   nmcli connection up ens18-slave
+   ```
+
+---
+
+### 🔍 To Verify
+
+- Check bridge and slave status:
+  ```bash
+  nmcli device status
+  ```
+
+- Show detailed bridge info:
+  ```bash
+  nmcli connection show nm-bridge2
+  ```
+
+- Inspect bridge interfaces:
+  ```bash
+  bridge link
+  ```
+
+---
+
+Would you like this bridge to have a static IP instead of DHCP? And are you using it for something specific (e.g., KVM, containers, etc.)?
+
+
+
+
+
+Ah, got it — if the `nm-bridge2` connection no longer exists, no worries — we can recreate it cleanly from scratch. Here’s a safe, clean way to re-establish the Linux bridge with `nmcli` and properly hook up your `ens18`.
+
+---
+
+### 🧱 Step-by-Step: Recreate `nm-bridge2` with `ens18`
+
+#### 1. 🧹 First, delete any leftover config (optional, but avoids conflicts):
+```bash
+nmcli connection delete ens18
+nmcli connection delete ens18-slave
+nmcli connection delete nm-bridge2
+```
+
+You can skip any of these if they don’t exist.
+
+---
+
+#### 2. ➕ Create the bridge:
+```bash
+nmcli connection add type bridge autoconnect yes con-name nm-bridge2 ifname nm-bridge2
+```
+
+---
+
+#### 3. ➕ Create a slave port for `ens18`:
+```bash
+nmcli connection add type ethernet slave-type bridge con-name ens18-slave ifname ens18 master nm-bridge2
+```
+
+---
+
+#### 4. 🌐 Set IP (pick **either DHCP or static**):
+
+**For DHCP:**
+```bash
+nmcli connection modify nm-bridge2 ipv4.method auto
+nmcli connection modify nm-bridge2 ipv6.method ignore
+```
+
+**Or for static:**
+```bash
+nmcli connection modify nm-bridge2 ipv4.addresses 192.168.1.54/24
+nmcli connection modify nm-bridge2 ipv4.gateway 192.168.1.1
+nmcli connection modify nm-bridge2 ipv4.dns 192.168.1.1
+nmcli connection modify nm-bridge2 ipv4.method manual
+nmcli connection modify nm-bridge2 ipv6.method ignore
+```
+
+---
+
+#### 5. 🔄 Bring everything up:
+```bash
+nmcli connection up nm-bridge2
+nmcli connection up ens18-slave
+```
+
+If you get any "device already managed" error, reboot or manually bring the device down:
+```bash
+nmcli device disconnect ens18
+```
+
+---
+
+### 🔍 Final Checks:
+
+- Confirm bridge is up:
+  ```bash
+  ip addr show nm-bridge2
+  ```
+
+- Confirm `ens18` is now a slave:
+  ```bash
+  bridge link
+  ```
+
+- Confirm connectivity:
+  ```bash
+  ping -I nm-bridge2 192.168.1.1
+  ```
+
+---
+
+Let me know if you want to make this connection persist across reboots (it should already, but we can double-check `autoconnect` settings), or if you're running into `NetworkManager` conflicts or `firewalld` issues.
 
 

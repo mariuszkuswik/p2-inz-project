@@ -12,6 +12,11 @@ variable "control_plane_disk_path" {
   type    = string
 }
 
+variable "mounts_path" {
+  type    = string
+  default = "/var/lib/libvirt/images/virsh-pool-default/mounts.iso"
+}
+
 variable "repo_path" {
   type    = string
   default = "/var/lib/libvirt/images/virsh-pool-default/repo/repos.iso"

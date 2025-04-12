@@ -36,17 +36,21 @@ resource "libvirt_domain" "control_plane" {
     volume_id = libvirt_volume.control_plane_image.id
   }
 
+  disk {
+    file = var.mounts_path
+  }
+
 #  disk {
 #    file = var.repo_path
 #  }
 
-  disk {
-    file = var.meta_path
-  }
+#  disk {
+#    file = var.meta_path
+#  }
 
-  disk {
-    file = var.ansible_path
-  }
+#  disk {
+#    file = var.ansible_path
+#  }
 
   graphics {
     type = "vnc"

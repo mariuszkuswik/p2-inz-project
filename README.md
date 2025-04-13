@@ -8,7 +8,12 @@ lsmod | grep kvm
 ```
 - Zmienić domyślne ścieżki dla ansible.iso itd., + uprawnienia do tych plików
 
+### Zmiana targetu virsh 
+```
 export LIBVIRT_DEFAULT_URI=qemu:///system
+```
+
+
 
 sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 

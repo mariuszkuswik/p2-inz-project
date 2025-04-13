@@ -8,8 +8,8 @@ REMOTE_HOST="ans_mariusz@192.168.1.10"
 SSH_KEY_PATH="/home/mariusz/.ssh/id_rsa"
 
 COMMAND="/usr/bin/ansible-playbook"
-INVENTORY="/mnt/ansible/inventory.ini"
-PLAYBOOK="/mnt/ansible/main.yml"
+INVENTORY="/mnt/mounts/Ansible/inventory.ini"
+PLAYBOOK="/mnt/mounts/Ansible/main.yml"
 
 DURATION=380  # Total duration to try in seconds
 INTERVAL=5    # Interval between retries in seconds

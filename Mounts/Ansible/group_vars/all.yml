@@ -4,7 +4,7 @@ ansible_user: ans_mariusz
 ansible_ssh_pass: mypassword 
 ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
-repo_files_source: "/mnt/meta/repo_files"
+repo_files_source: "/mnt/mounts/Repos"
 
 local_nfs_ro_mount_paths: "{{ nfs_ro_export_dirs }}"
 local_nfs_rw_mount_paths: "{{ nfs_rw_export_dirs }}"
@@ -17,9 +17,9 @@ main_machine_hostname: "control-plane"
 #### NFS #### 
 # CONTROL-PLANE Global settings!
 nfs_ro_export_dirs: 
-  - "/mnt/repos"
-  - "/mnt/meta"
-  - "/mnt/ansible"
+  - "/mnt/mounts/Repos"
+  - "/mnt/mounts/Meta"
+  - "/mnt/mounts/Ansible"
 
 nfs_rw_export_dirs:
   - "/exports/{{ main_machine_hostname }}"

@@ -5,17 +5,17 @@
     state: directory
   loop: "{{ local_iso_mounts }}"
 
-- name: Mounts - Mount the optical drives
-  mount:
-    path: "{{ item.0 }}"
-    src: "{{ item.1 }}"
-    fstype: iso9660
-    opts: "ro"
-    state: mounted
-    boot: true
-  with_together:
-    - "{{ local_iso_mounts }}"
-    - "{{ local_iso_device_paths }}"
+# - name: Mounts - Mount the optical drives
+  # mount:
+    # path: "{{ item.0 }}"
+    # src: "{{ item.1 }}"
+    # fstype: iso9660
+    # opts: "ro"
+    # state: mounted
+    # boot: true
+  # with_together:
+    # - "{{ local_iso_mounts }}"
+    # - "{{ local_iso_device_paths }}"
 
 - name: NFS - Install server package
   package:
